@@ -2,7 +2,6 @@ package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -63,7 +62,6 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         mObjectivesViewModel.onBottomAppBarMenuItemSelected(item);
-        Log.d("ajaja", "hahahaha");
         return super.onOptionsItemSelected(item);
     }
 
