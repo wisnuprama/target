@@ -27,10 +27,14 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // setup UI
         setContentView(R.layout.okr_activity);
-        setSupportActionBar((Toolbar) findViewById(R.id.bottom_app_bar));
-        setupViewModel();
+        setSupportActionBar(findViewById(R.id.bottom_app_bar));
         setupThemeModeReceiverOnFresh();
+
+        // setup other
+        setupViewModel();
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, ObjectivesFragment.newInstance())
