@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/main"
+android:id="@+id/objectives_fragment_container"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".ui.objectives.ObjectivesFragment">
-
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,25 +17,4 @@ tools:context=".ui.objectives.ObjectivesFragment">
             android:text="@string/app_name"
             style="@style/AppTheme.ProjectName"/>
     </androidx.appcompat.widget.Toolbar>
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:fabAlignmentMode="center"
-        app:fabAnimationMode="slide"
-        app:menu="@menu/objectives_bottom_appbar_menu"
-        app:navigationContentDescription="@string/menu_description"
-        app:navigationIcon="@drawable/ic_menu_24dp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_add_24dp"
-        app:backgroundTint="@color/primary_color_accent"
-        app:tint="@color/primary_color"
-        app:layout_anchor="@id/bottom_app_bar"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
