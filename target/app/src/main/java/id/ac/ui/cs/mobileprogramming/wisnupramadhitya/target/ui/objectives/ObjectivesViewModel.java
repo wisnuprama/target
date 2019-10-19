@@ -22,7 +22,7 @@ public class ObjectivesViewModel extends ViewModel {
         this.mOkrNavigator = null;
     }
 
-    public Boolean  onBottomAppBarMenuItemSelected(@NonNull MenuItem item) {
+    public void onBottomAppBarMenuItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.objectives_bottom_app_bar_about:
                 mOkrNavigator.startAbout();
@@ -33,7 +33,5 @@ public class ObjectivesViewModel extends ViewModel {
             case R.id.objectives_bottom_app_bar_search:
             default:
         }
-
-        return true;
     }
 }

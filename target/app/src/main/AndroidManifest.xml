@@ -32,12 +32,6 @@
         </activity>
 
         <!-- BROADCAST -->
-        <receiver android:name=".broadcastreceiver.PowerSaveModeReceiver">
-            <intent-filter>
-                <action android:name="android.os.action.POWER_SAVE_MODE_CHANGED"/>
-                <action android:name="android.intent.action.BATTERY_LOW"/>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
