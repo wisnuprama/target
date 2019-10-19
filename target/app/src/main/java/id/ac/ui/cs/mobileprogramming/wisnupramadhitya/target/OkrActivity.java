@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
@@ -29,7 +30,8 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         super.onCreate(savedInstanceState);
         // setup UI
         setContentView(R.layout.okr_activity);
-        setSupportActionBar(findViewById(R.id.bottom_app_bar));
+        ButterKnife.bind(this, this);
+        setSupportActionBar(bottomAppBar);
         setupThemeModeReceiverOnFresh();
 
         // setup other
