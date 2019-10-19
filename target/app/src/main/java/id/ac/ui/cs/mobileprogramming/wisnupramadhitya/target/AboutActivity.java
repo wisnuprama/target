@@ -1,20 +1,20 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.main.MainFragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.about.AboutFragment;
+
+public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.about_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, AboutFragment.newInstance())
                     .commitNow();
         }
     }
