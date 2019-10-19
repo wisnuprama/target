@@ -12,6 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- ACTIVITY -->
+        <activity
+            android:name=".OkrActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -21,17 +31,20 @@
                 android:value="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.OkrActivity" />
         </activity>
         <activity android:name=".AboutActivity" />
-        <activity
-            android:name=".OkrActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <!-- SERVICE -->
+        <service
+            android:name=".service.ThemeModeJobService"
+            android:label="Powersave service"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+        </service>
 
         <!-- BROADCAST -->
+        <receiver android:name=".broadcastreceiver.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

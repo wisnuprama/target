@@ -1,6 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import butterknife.BindView;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesViewModel;
 
@@ -28,6 +30,7 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         setContentView(R.layout.okr_activity);
         setSupportActionBar((Toolbar) findViewById(R.id.bottom_app_bar));
         setupViewModel();
+        setupThemeModeReceiverOnFresh();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, ObjectivesFragment.newInstance())
@@ -68,5 +71,14 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     private void setupViewModel() {
         mObjectivesViewModel = ViewModelProviders.of(this).get(ObjectivesViewModel.class);
         mObjectivesViewModel.onActivityCreated(this);
+    }
+
+
+    private void setupThemeModeReceiverOnFresh() {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            // running only below android 10, because android natively use
+            // dark mode on battery saver
+            ThemeModeJobService.scheduleJob(getApplicationContext());
+        }
     }
 }
