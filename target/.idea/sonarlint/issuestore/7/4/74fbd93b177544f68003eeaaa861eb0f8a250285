@@ -1,5 +1,0 @@
-
-asquid:UselessImportCheck"6Remove this unused import 'android.view.MenuInflater'.(¥ñ´Ò8¿¾©ÙÝ-
-usquid:S1450"YRemove the "mViewModel" field and declare it as a local variable in the relevant methods.(²â¨Œøÿÿÿÿ
-Jsquid:S1068".Remove this unused "mViewModel" private field.(²â¨Œøÿÿÿÿ
-Ysquid:UselessImportCheck".Remove this unused import 'android.view.Menu'.(£¯Ò…8¿¾©ÙÝ-
