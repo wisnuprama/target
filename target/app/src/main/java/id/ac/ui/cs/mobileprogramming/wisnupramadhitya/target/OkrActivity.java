@@ -1,7 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,9 +13,12 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesViewModel;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 
 public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
@@ -27,12 +29,13 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // set the theme to the true one before create
+        setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         // setup UI
         setContentView(R.layout.okr_activity);
         ButterKnife.bind(this, this);
         setSupportActionBar(bottomAppBar);
-        setupThemeModeReceiverOnFresh();
 
         // setup other
         setupViewModel();
@@ -42,6 +45,12 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
                     .replace(R.id.container, ObjectivesFragment.newInstance())
                     .commitNow();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        setupThemeModeReceiverOnFresh();
+        super.onResume();
     }
 
     @Override
@@ -79,12 +88,21 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         mObjectivesViewModel.onActivityCreated(this);
     }
 
-
+    /**
+     * Run schedule job for theme mode service or apply theme
+     */
     private void setupThemeModeReceiverOnFresh() {
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+        final boolean isAutoDarkMode = PreferenceRepository.getAutoDarkMode(getApplicationContext());
+        final String themeMode = PreferenceRepository.getThemeMode(getApplicationContext());
+        final boolean isAndroid10 = BuildUtils.isAndroid10();
+
+        final boolean isThemeDarkMode = getString(R.string.theme_value_dark).equals(themeMode);
+        if(!isAndroid10 && isAutoDarkMode && !isThemeDarkMode) {
             // running only below android 10, because android natively use
             // dark mode on battery saver
             ThemeModeJobService.scheduleJob(getApplicationContext());
+        } else if(isThemeDarkMode) {
+            ThemeUtils.applyTheme(themeMode);
         }
     }
 }

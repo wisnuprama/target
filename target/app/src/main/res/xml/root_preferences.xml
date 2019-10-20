@@ -16,35 +16,34 @@
 
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/general_header">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            app:key="@string/good_morning"
+            app:title="@string/good_morning_title"
+            app:summary="@string/good_morning_summary" />
 
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+        <Preference
+            app:key="@string/backup"
+            app:title="@string/backup_title"
+            app:summary="@string/backup_summary"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="@string/theme_header">
 
         <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+            app:key="@string/auto_dark_mode"
+            app:title="@string/auto_dark_mode_title"
+            app:summary="@string/auto_dark_mode_summary" />
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+        <ListPreference
+            app:key="@string/theme_mode"
+            app:defaultValue="light"
+            app:entries="@array/theme_mode_entries"
+            app:entryValues="@array/theme_mode_values"
+            app:title="@string/theme_mode_title"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
