@@ -5,7 +5,7 @@ import android.os.PowerManager;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.repository.PreferenceRepository;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.PreferenceRepository;
 
 public class ThemeUtils {
 

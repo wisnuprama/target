@@ -13,7 +13,7 @@ public class ObjectivesViewModel extends ViewModel {
 
     private OkrNavigator mOkrNavigator;
 
-    public void onActivityCreated(@NonNull  OkrNavigator okrNavigator) {
+    public void onActivityCreated(@NonNull OkrNavigator okrNavigator) {
         this.mOkrNavigator = okrNavigator;
     }
 

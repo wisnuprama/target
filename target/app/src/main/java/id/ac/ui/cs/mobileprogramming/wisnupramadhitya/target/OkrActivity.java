@@ -1,5 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,10 +13,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.AppDatabase;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.addobjective.AddObjectiveFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerViewModel;
@@ -38,6 +42,8 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setupFirstRun();
+
         // set the theme to the true one before create
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
@@ -128,6 +134,22 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     private void setupButtonListener() {
         mFloatingActionButton.setOnClickListener(mObjectivesViewModel::onFabAddObjectiveClicked);
+    }
+
+    private void setupFirstRun() {
+        Context context = getApplicationContext();
+        try {
+            if(PreferenceRepository.isFirstRun(context)) {
+                // run in main thread because the data must be ready at first run
+                AppDatabase.seedUser(context);
+                AppDatabase.seedProject(context);
+                PreferenceRepository.setFirstRunCompleted(context);
+            }
+        } catch (IOException e) {
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

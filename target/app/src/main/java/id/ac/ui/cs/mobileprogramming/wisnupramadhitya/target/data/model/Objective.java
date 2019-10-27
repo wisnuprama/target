@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.model;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -40,7 +40,7 @@ public class Objective {
     private String mRational;
 
     @ColumnInfo(name = "date_created")
-    private OffsetDateTime mDateCreated;
+    private OffsetDateTime mDateCreated = OffsetDateTime.now();
 
     @ColumnInfo(name = "deadline")
     private OffsetDateTime mDeadline;

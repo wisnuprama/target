@@ -1,9 +1,11 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.model;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.time.OffsetDateTime;
 
@@ -18,21 +20,26 @@ import java.time.OffsetDateTime;
 )
 public class Project {
 
+    @SerializedName("id")
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private Integer mId;
 
+    @SerializedName("projectName")
     @ColumnInfo(name = "project_name")
     private String mProjectName;
 
+    @SerializedName("ownerId")
     @ColumnInfo(name = "owner_id", index = true)
     private String mOwnerId;
 
+    @SerializedName("isFavorite")
     @ColumnInfo(name = "is_favorite")
     private Boolean mIsFavorite;
 
+    @SerializedName("dateCreated")
     @ColumnInfo(name = "date_created")
-    private OffsetDateTime mDateCreated;
+    private OffsetDateTime mDateCreated = OffsetDateTime.now();
 
     public Integer getId() {
         return mId;

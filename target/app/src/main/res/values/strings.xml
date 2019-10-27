@@ -21,6 +21,9 @@
     <string name="backup">backup</string>
     <string name="auto_dark_mode">auto_dark_mode</string>
     <string name="theme_mode">theme_mode</string>
+    <string name="active_user_id">active_user_id</string>
+    <string name="active_project_id">active_project_id</string>
+    <string name="first_run">first_run</string>
 
     <!-- General Preferences -->
     <string name="good_morning_title">Good morning</string>
