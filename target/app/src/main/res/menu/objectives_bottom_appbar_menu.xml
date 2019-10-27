@@ -6,6 +6,12 @@
         android:icon="@drawable/ic_search_24dp"
         android:title="@string/action_search"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/objectives_bottom_app_bar_learn_okr"
+        android:title="@string/action_learn_okr"
+        app:showAsAction="never"/>
+
     <item
         android:id="@+id/objectives_bottom_app_bar_settings"
         android:title="@string/action_settings"
