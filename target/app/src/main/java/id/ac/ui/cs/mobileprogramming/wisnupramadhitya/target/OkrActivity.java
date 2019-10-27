@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomNavigationDrawerFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
@@ -91,7 +92,7 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @Override
     public void showUserProjects() {
-        final OkrBottomNavigationDrawerFragment bottomNavigationDrawerFragment = OkrBottomNavigationDrawerFragment.newInstance();
+        final BottomNavigationDrawerFragment bottomNavigationDrawerFragment = BottomNavigationDrawerFragment.newInstance();
         bottomNavigationDrawerFragment.show(getSupportFragmentManager(), bottomNavigationDrawerFragment.getTag());
     }
 
