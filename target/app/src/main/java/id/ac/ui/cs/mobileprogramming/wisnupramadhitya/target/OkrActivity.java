@@ -23,7 +23,7 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @BindView(R.id.bottom_app_bar)
-    Toolbar bottomAppBar;
+    protected Toolbar bottomAppBar;
 
     private ObjectivesViewModel mObjectivesViewModel;
 
@@ -69,6 +69,12 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     public void startAbout() {
         Intent aboutIntent = new Intent(this, AboutActivity.class);
         startActivity(aboutIntent);
+    }
+
+    @Override
+    public void startLearnOkr() {
+        Intent learnOkrIntent = new Intent(this, LearnOkrActivity.class);
+        startActivity(learnOkrIntent);
     }
 
     @Override

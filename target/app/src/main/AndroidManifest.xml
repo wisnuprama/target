@@ -12,14 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <!-- ACTIVITY -->
         <activity
             android:name=".OkrActivity"
             android:theme="@style/AppTheme.Launcher">
+
             <!-- Run as launcher, change in the activity to the true theme -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,23 +33,26 @@
                 android:value="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.OkrActivity" />
         </activity>
         <activity
+            android:name=".LearnOkrActivity"
+            android:label="@string/title_activity_learn_okr"
+            android:parentActivityName=".OkrActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.OkrActivity" />
+        </activity>
+        <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
             android:parentActivityName=".OkrActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.OkrActivity" />
-        </activity>
-
-        <!-- SERVICE -->
+        </activity> <!-- SERVICE -->
         <service
             android:name=".service.ThemeModeJobService"
             android:label="Powersave service"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-        </service>
-
-        <!-- BROADCAST -->
-        <receiver android:name=".broadcastreceiver.BootReceiver" >
+            android:permission="android.permission.BIND_JOB_SERVICE"></service> <!-- BROADCAST -->
+        <receiver android:name=".broadcastreceiver.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

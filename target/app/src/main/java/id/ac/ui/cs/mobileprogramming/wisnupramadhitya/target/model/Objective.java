@@ -27,10 +27,10 @@ public class Objective {
     @ColumnInfo(name = "id")
     private Integer mId;
 
-    @ColumnInfo(name = "project_id")
+    @ColumnInfo(name = "project_id", index = true)
     private Integer mProjectId;
 
-    @ColumnInfo(name = "owner_id")
+    @ColumnInfo(name = "owner_id", index = true)
     private String mOwnerId;
 
     @ColumnInfo(name = "title")

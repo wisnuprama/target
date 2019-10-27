@@ -25,7 +25,7 @@ public class Project {
     @ColumnInfo(name = "project_name")
     private String mProjectName;
 
-    @ColumnInfo(name = "owner_id")
+    @ColumnInfo(name = "owner_id", index = true)
     private String mOwnerId;
 
     @ColumnInfo(name = "is_favorite")
@@ -36,6 +36,10 @@ public class Project {
 
     public Integer getId() {
         return mId;
+    }
+
+    public void setId(Integer id) {
+        mId = id;
     }
 
     public String getProjectName() {

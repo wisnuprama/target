@@ -30,6 +30,9 @@ public class ObjectivesViewModel extends ViewModel {
             case R.id.objectives_bottom_app_bar_settings:
                 mOkrNavigator.startSettings();
                 break;
+            case R.id.objectives_bottom_app_bar_learn_okr:
+                mOkrNavigator.startLearnOkr();
+                break;
             case R.id.objectives_bottom_app_bar_search:
             default:
         }

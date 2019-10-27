@@ -19,7 +19,7 @@ public class KeyResult {
     @ColumnInfo(name = "id")
     private Integer mId;
 
-    @ColumnInfo(name = "objective_id")
+    @ColumnInfo(name = "objective_id", index = true)
     private Integer mObjectiveId;
 
     @ColumnInfo(name = "statement")

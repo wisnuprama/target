@@ -28,19 +28,17 @@ public abstract class AppDatabase extends RoomDatabase {
     // DAO
     public abstract UserDao userDao();
 
-
-
     public static final String DB_NAME = "app_db";
-    private static AppDatabase INSTANCE;
+    private static AppDatabase instance;
 
     public static synchronized AppDatabase getDatabase(final Context context) {
-        if(INSTANCE == null) {
-            INSTANCE = Room
+        if(instance == null) {
+            instance = Room
                     .databaseBuilder(context.getApplicationContext(),
                                      AppDatabase.class,
                                      DB_NAME)
                     .build();
         }
-        return INSTANCE;
+        return instance;
     }
 }
