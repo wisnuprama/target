@@ -10,12 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomNavigationDrawerFragment;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.addobjective.AddObjectiveFragment;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
@@ -24,9 +27,14 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @BindView(R.id.bottom_app_bar)
-    protected Toolbar bottomAppBar;
+    protected Toolbar mBottomAppBar;
+
+    @BindView(R.id.add_objective)
+    protected FloatingActionButton mFloatingActionButton;
 
     private ObjectivesViewModel mObjectivesViewModel;
+
+    private BottomDrawerViewModel mBottomDrawerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +44,11 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         // setup UI
         setContentView(R.layout.activity_okr);
         ButterKnife.bind(this, this);
-        setSupportActionBar(bottomAppBar);
+        setSupportActionBar(mBottomAppBar);
 
         // setup other
         setupViewModel();
+        setupButtonListener();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -92,18 +101,33 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @Override
     public void showUserProjects() {
-        final BottomNavigationDrawerFragment bottomNavigationDrawerFragment = BottomNavigationDrawerFragment.newInstance();
-        bottomNavigationDrawerFragment.show(getSupportFragmentManager(), bottomNavigationDrawerFragment.getTag());
+        mBottomDrawerViewModel
+                .showBottomNavigationDrawerFragment(getSupportFragmentManager(), null);
     }
 
     @Override
-    public void showCreateObjective() {
-        // TODO: implement show form
+    public void showAddObjective() {
+        // activate the form
+        final AddObjectiveFragment addObjectiveFragment = AddObjectiveFragment.newInstance();
+        mBottomDrawerViewModel
+                .showBottomNavigationDrawerFragment(getSupportFragmentManager(), addObjectiveFragment);
+    }
+
+    @Override
+    public void showSearchProjects() {
+        mBottomDrawerViewModel
+                .showBottomNavigationDrawerFragment(getSupportFragmentManager(), null);
     }
 
     private void setupViewModel() {
         mObjectivesViewModel = ViewModelProviders.of(this).get(ObjectivesViewModel.class);
         mObjectivesViewModel.onActivityCreated(this);
+
+        mBottomDrawerViewModel = ViewModelProviders.of(this).get(BottomDrawerViewModel.class);
+    }
+
+    private void setupButtonListener() {
+        mFloatingActionButton.setOnClickListener(mObjectivesViewModel::onFabAddObjectiveClicked);
     }
 
     /**

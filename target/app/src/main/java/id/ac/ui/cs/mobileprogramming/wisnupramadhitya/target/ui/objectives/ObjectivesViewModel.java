@@ -1,6 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives;
 
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -11,8 +12,6 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNaviga
 public class ObjectivesViewModel extends ViewModel {
 
     private OkrNavigator mOkrNavigator;
-
-
 
     public void onActivityCreated(@NonNull  OkrNavigator okrNavigator) {
         this.mOkrNavigator = okrNavigator;
@@ -36,11 +35,14 @@ public class ObjectivesViewModel extends ViewModel {
             case android.R.id.home:
                 mOkrNavigator.showUserProjects();
                 break;
-            case R.id.create_objective:
-                mOkrNavigator.showCreateObjective();
-                break;
             case R.id.objectives_bottom_app_bar_search:
+                mOkrNavigator.showSearchProjects();
+                break;
             default:
         }
+    }
+
+    public void onFabAddObjectiveClicked(View view) {
+        mOkrNavigator.showAddObjective();
     }
 }

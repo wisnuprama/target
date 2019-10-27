@@ -10,6 +10,7 @@ public interface OkrNavigator {
 
     void showUserProjects();
 
-    void showCreateObjective();
+    void showAddObjective();
 
+    void showSearchProjects();
 }
