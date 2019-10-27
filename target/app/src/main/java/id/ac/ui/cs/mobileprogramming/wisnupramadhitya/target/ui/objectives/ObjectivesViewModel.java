@@ -33,6 +33,12 @@ public class ObjectivesViewModel extends ViewModel {
             case R.id.objectives_bottom_app_bar_learn_okr:
                 mOkrNavigator.startLearnOkr();
                 break;
+            case android.R.id.home:
+                mOkrNavigator.showUserProjects();
+                break;
+            case R.id.create_objective:
+                mOkrNavigator.showCreateObjective();
+                break;
             case R.id.objectives_bottom_app_bar_search:
             default:
         }

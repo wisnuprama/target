@@ -33,7 +33,7 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         // setup UI
-        setContentView(R.layout.okr_activity);
+        setContentView(R.layout.activity_okr);
         ButterKnife.bind(this, this);
         setSupportActionBar(bottomAppBar);
 
@@ -60,6 +60,18 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.objectives_bottom_appbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        mObjectivesViewModel.onBottomAppBarMenuItemSelected(item);
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void startSettings() {
         Intent settingsIntent = new Intent(this, SettingsActivity.class);
         startActivity(settingsIntent);
@@ -78,15 +90,14 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.objectives_bottom_appbar_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+    public void showUserProjects() {
+        final OkrBottomNavigationDrawerFragment bottomNavigationDrawerFragment = OkrBottomNavigationDrawerFragment.newInstance();
+        bottomNavigationDrawerFragment.show(getSupportFragmentManager(), bottomNavigationDrawerFragment.getTag());
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        mObjectivesViewModel.onBottomAppBarMenuItemSelected(item);
-        return super.onOptionsItemSelected(item);
+    public void showCreateObjective() {
+        // TODO: implement show form
     }
 
     private void setupViewModel() {
