@@ -10,11 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.addobjective.AddObjectiveFragment;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
@@ -23,9 +27,14 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @BindView(R.id.bottom_app_bar)
-    protected Toolbar bottomAppBar;
+    protected Toolbar mBottomAppBar;
+
+    @BindView(R.id.add_objective)
+    protected FloatingActionButton mFloatingActionButton;
 
     private ObjectivesViewModel mObjectivesViewModel;
+
+    private BottomDrawerViewModel mBottomDrawerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +42,13 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         // setup UI
-        setContentView(R.layout.okr_activity);
+        setContentView(R.layout.activity_okr);
         ButterKnife.bind(this, this);
-        setSupportActionBar(bottomAppBar);
+        setSupportActionBar(mBottomAppBar);
 
         // setup other
         setupViewModel();
+        setupButtonListener();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -60,6 +70,18 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.objectives_bottom_appbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        mObjectivesViewModel.onBottomAppBarMenuItemSelected(item);
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void startSettings() {
         Intent settingsIntent = new Intent(this, SettingsActivity.class);
         startActivity(settingsIntent);
@@ -78,20 +100,34 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.objectives_bottom_appbar_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+    public void showUserProjects() {
+        mBottomDrawerViewModel
+                .showBottomNavigationDrawerFragment(getSupportFragmentManager(), null);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        mObjectivesViewModel.onBottomAppBarMenuItemSelected(item);
-        return super.onOptionsItemSelected(item);
+    public void showAddObjective() {
+        // activate the form
+        final AddObjectiveFragment addObjectiveFragment = AddObjectiveFragment.newInstance();
+        mBottomDrawerViewModel
+                .showBottomNavigationDrawerFragment(getSupportFragmentManager(), addObjectiveFragment);
+    }
+
+    @Override
+    public void showSearchProjects() {
+        mBottomDrawerViewModel
+                .showBottomNavigationDrawerFragment(getSupportFragmentManager(), null);
     }
 
     private void setupViewModel() {
         mObjectivesViewModel = ViewModelProviders.of(this).get(ObjectivesViewModel.class);
         mObjectivesViewModel.onActivityCreated(this);
+
+        mBottomDrawerViewModel = ViewModelProviders.of(this).get(BottomDrawerViewModel.class);
+    }
+
+    private void setupButtonListener() {
+        mFloatingActionButton.setOnClickListener(mObjectivesViewModel::onFabAddObjectiveClicked);
     }
 
     /**

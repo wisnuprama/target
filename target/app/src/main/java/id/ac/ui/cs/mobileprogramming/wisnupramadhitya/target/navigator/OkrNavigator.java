@@ -8,4 +8,9 @@ public interface OkrNavigator {
 
     void startLearnOkr();
 
+    void showUserProjects();
+
+    void showAddObjective();
+
+    void showSearchProjects();
 }

@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.about;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.addobjective;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,25 +12,24 @@ import androidx.lifecycle.ViewModelProviders;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 
-public class AboutFragment extends Fragment {
+public class AddObjectiveFragment extends Fragment {
 
-    private AboutViewModel mViewModel;
+    private AddObjectiveViewModel mViewModel;
 
-    public static AboutFragment newInstance() {
-        return new AboutFragment();
+    public static AddObjectiveFragment newInstance() {
+        return new AddObjectiveFragment();
     }
 
-    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        return inflater.inflate(R.layout.fragment_add_objective, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(AboutViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(AddObjectiveViewModel.class);
         // TODO: Use the ViewModel
     }
 
