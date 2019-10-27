@@ -16,7 +16,7 @@ public interface ProjectDao {
     void insertAll(Project... projects);
 
     @Query("SELECT * FROM project WHERE owner_id = :userId")
-    LiveData<List<Project>> getUserProjects(String userId);
+    LiveData<List<Project>> getProjectsByUserId(String userId);
 
     @Query("SELECT * FROM project")
     LiveData<List<Project>> getProjects();

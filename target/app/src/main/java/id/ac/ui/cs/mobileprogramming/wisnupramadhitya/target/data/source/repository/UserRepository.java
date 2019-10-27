@@ -2,8 +2,6 @@ package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.reposi
 
 import androidx.lifecycle.LiveData;
 
-import java.util.List;
-
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.User;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.dao.UserDao;
 
@@ -18,13 +16,8 @@ public class UserRepository implements UserDataSource {
     }
 
     @Override
-    public LiveData<List<User>> getUsers() {
-        return null;
-    }
-
-    @Override
     public LiveData<User> getUser(String userId) {
-        return null;
+        return mUserDao.getUserById(userId);
     }
 
     public static synchronized UserRepository getInstance(UserDao userDao) {

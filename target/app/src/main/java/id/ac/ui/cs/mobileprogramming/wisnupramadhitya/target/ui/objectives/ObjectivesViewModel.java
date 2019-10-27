@@ -4,17 +4,30 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Project;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ProjectRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
 
 public class ObjectivesViewModel extends ViewModel {
 
     private OkrNavigator mOkrNavigator;
 
-    public void onActivityCreated(@NonNull OkrNavigator okrNavigator) {
+    private ProjectRepository mProjectRepository;
+
+    private int mCurrentProjectId;
+
+    public LiveData<Project> projectLiveData;
+
+    public void onActivityCreated(@NonNull OkrNavigator okrNavigator,
+                                  ProjectRepository projectRepository, int currentProjectId) {
         this.mOkrNavigator = okrNavigator;
+        this.mProjectRepository = projectRepository;
+        this.mCurrentProjectId = currentProjectId;
+        projectLiveData = mProjectRepository.getProject(mCurrentProjectId);
     }
 
     public void onActivityDestroyed() {

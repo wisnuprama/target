@@ -26,6 +26,7 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDra
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 
 public class OkrActivity extends AppCompatActivity implements OkrNavigator {
@@ -127,7 +128,9 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     private void setupViewModel() {
         mObjectivesViewModel = ViewModelProviders.of(this).get(ObjectivesViewModel.class);
-        mObjectivesViewModel.onActivityCreated(this);
+        mObjectivesViewModel.onActivityCreated(this,
+                                               Injector.getProjectRepository(getApplicationContext()),
+                                               PreferenceRepository.getActiveProjectId(getApplicationContext()));
 
         mBottomDrawerViewModel = ViewModelProviders.of(this).get(BottomDrawerViewModel.class);
     }
