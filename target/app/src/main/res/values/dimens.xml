@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<resources>
+    <dimen name="bottom_drawer_min_height">200dp</dimen>
+    <dimen name="bottom_drawer_radius">16dp</dimen>
+</resources>
