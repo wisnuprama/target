@@ -6,4 +6,9 @@
         android:topLeftRadius="@dimen/bottom_drawer_radius"
         android:topRightRadius="@dimen/bottom_drawer_radius"/>
     <solid android:color="?attr/colorOnPrimarySurface"/>
+    <padding
+        android:left="10dp"
+        android:top="10dp"
+        android:right="10dp"
+        android:bottom="10dp" />
 </shape>
