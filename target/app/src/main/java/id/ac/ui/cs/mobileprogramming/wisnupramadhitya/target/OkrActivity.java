@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,7 +50,7 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         // setup UI
-        DataBindingUtil.setContentView(this, R.layout.activity_okr);
+        setContentView(R.layout.activity_okr);
         ButterKnife.bind(this, this);
         setSupportActionBar(mBottomAppBar);
 
