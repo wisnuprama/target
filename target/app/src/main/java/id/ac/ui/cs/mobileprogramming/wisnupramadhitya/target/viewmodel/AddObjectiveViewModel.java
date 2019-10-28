@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.addobjective;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
