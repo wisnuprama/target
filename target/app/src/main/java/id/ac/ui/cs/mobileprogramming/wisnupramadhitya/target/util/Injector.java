@@ -7,16 +7,22 @@ import androidx.annotation.NonNull;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.AppDatabase;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ProjectRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.UserRepository;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModelFactory;
 
 public class Injector {
 
-    public static UserRepository getUserRepository(@NonNull Context context) {
+    private static UserRepository getUserRepository(@NonNull Context context) {
         AppDatabase appDatabase = AppDatabase.getInstance(context);
         return UserRepository.getInstance(appDatabase.userDao());
     }
 
-    public static ProjectRepository getProjectRepository(@NonNull Context context) {
+    private static ProjectRepository getProjectRepository(@NonNull Context context) {
         AppDatabase appDatabase = AppDatabase.getInstance(context);
         return ProjectRepository.getInstance(appDatabase.projectDao());
+    }
+
+    public static ObjectivesViewModelFactory provideObjectivesViewModelFactory(@NonNull Context context) {
+        ProjectRepository projectRepository = getProjectRepository(context);
+        return new ObjectivesViewModelFactory(projectRepository);
     }
 }

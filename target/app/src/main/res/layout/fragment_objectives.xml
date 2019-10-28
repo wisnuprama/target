@@ -6,7 +6,7 @@
     <data>
         <variable
             name="objectivesViewModel"
-            type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesViewModel" />
+            type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{objectivesViewModel.projectLiveData.projectName ?? @string/app_name}"
+                android:text="@{objectivesViewModel.projectLiveData.projectName, default=@string/app_name}"
                 style="@style/AppTheme.ProjectName"/>
         </androidx.appcompat.widget.Toolbar>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

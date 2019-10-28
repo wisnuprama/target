@@ -1,10 +1,15 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel;
 
+import android.content.Context;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableInt;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
@@ -18,16 +23,23 @@ public class ObjectivesViewModel extends ViewModel {
 
     private ProjectRepository mProjectRepository;
 
-    private int mCurrentProjectId;
+    public final ObservableInt selectedProjectId = new ObservableInt();
 
     public LiveData<Project> projectLiveData;
 
-    public void onActivityCreated(@NonNull OkrNavigator okrNavigator,
-                                  ProjectRepository projectRepository, int currentProjectId) {
-        this.mOkrNavigator = okrNavigator;
-        this.mProjectRepository = projectRepository;
-        this.mCurrentProjectId = currentProjectId;
-        projectLiveData = mProjectRepository.getProject(mCurrentProjectId);
+    public ObjectivesViewModel(ProjectRepository projectRepository) {
+        mProjectRepository = projectRepository;
+    }
+
+    public void onActivityCreated(@NonNull OkrNavigator okrNavigator, int currentProjectId) {
+        mOkrNavigator = okrNavigator;
+        selectedProjectId.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                projectLiveData = mProjectRepository.getProject(selectedProjectId.get());
+            }
+        });
+        selectedProjectId.set(currentProjectId);
     }
 
     public void onActivityDestroyed() {
