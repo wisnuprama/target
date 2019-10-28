@@ -1,6 +1,5 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel;
 
-import android.content.Context;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -8,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
@@ -29,17 +26,16 @@ public class ObjectivesViewModel extends ViewModel {
 
     public ObjectivesViewModel(ProjectRepository projectRepository) {
         mProjectRepository = projectRepository;
-    }
-
-    public void onActivityCreated(@NonNull OkrNavigator okrNavigator, int currentProjectId) {
-        mOkrNavigator = okrNavigator;
         selectedProjectId.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 projectLiveData = mProjectRepository.getProject(selectedProjectId.get());
             }
         });
-        selectedProjectId.set(currentProjectId);
+    }
+
+    public void onActivityCreated(@NonNull OkrNavigator okrNavigator) {
+        mOkrNavigator = okrNavigator;
     }
 
     public void onActivityDestroyed() {

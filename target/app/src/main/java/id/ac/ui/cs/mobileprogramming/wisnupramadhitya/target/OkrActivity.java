@@ -25,10 +25,10 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJo
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.addobjective.AddObjectiveFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModelFactory;
 
 public class OkrActivity extends AppCompatActivity implements OkrNavigator {
@@ -132,9 +132,7 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         final Context context = getApplicationContext();
         ObjectivesViewModelFactory factory = Injector.provideObjectivesViewModelFactory(context);
         mObjectivesViewModel = ViewModelProviders.of(this, factory).get(ObjectivesViewModel.class);
-        mObjectivesViewModel.onActivityCreated(this,
-                                               PreferenceRepository.getActiveProjectId(context));
-
+        mObjectivesViewModel.onActivityCreated(this);
         mBottomDrawerViewModel = ViewModelProviders.of(this).get(BottomDrawerViewModel.class);
     }
 

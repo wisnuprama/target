@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:paddingVertical="24dp"
             android:paddingHorizontal="16dp">
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/project_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{objectivesViewModel.projectLiveData.projectName, default=@string/app_name}"
