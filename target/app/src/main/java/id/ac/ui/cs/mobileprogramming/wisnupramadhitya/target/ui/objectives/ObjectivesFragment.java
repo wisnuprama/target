@@ -52,6 +52,8 @@ public class ObjectivesFragment extends Fragment {
         ObjectivesViewModelFactory factory = Injector.provideObjectivesViewModelFactory(getActivity());
         mViewModel = ViewModelProviders.of(this, factory).get(ObjectivesViewModel.class);
         mFragmentObjectivesBinding.setObjectivesViewModel(mViewModel);
+        mViewModel.onActivityCreated();
+        // load latest active project
         mViewModel.selectedProjectId.set(PreferenceRepository.getActiveProjectId(getActivity()));
     }
 }

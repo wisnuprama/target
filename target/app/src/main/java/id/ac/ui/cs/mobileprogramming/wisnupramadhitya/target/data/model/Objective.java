@@ -45,6 +45,14 @@ public class Objective {
     @ColumnInfo(name = "deadline")
     private OffsetDateTime mDeadline;
 
+    public Objective(Integer projectId, String ownerId, String title, String rational, OffsetDateTime deadline) {
+        mProjectId = projectId;
+        mOwnerId = ownerId;
+        mTitle = title;
+        mRational = rational;
+        mDeadline = deadline;
+    }
+
     public Integer getId() {
         return mId;
     }

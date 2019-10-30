@@ -110,21 +110,24 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     @Override
     public void showUserProjects() {
         mBottomDrawerViewModel
-                .showBottomNavigationDrawerFragment(getSupportFragmentManager(), null);
+                .showBottomDrawerFragment(getSupportFragmentManager(), null);
     }
 
     @Override
     public void showAddObjective() {
         // activate the form
-        final AddObjectiveFragment addObjectiveFragment = AddObjectiveFragment.newInstance();
+        int projectId = mObjectivesViewModel.selectedProjectId.get();
+        String userId = PreferenceRepository.getActiveUserId(getApplicationContext());
+        final AddObjectiveFragment addObjectiveFragment = AddObjectiveFragment
+                .newInstance(userId, projectId);
         mBottomDrawerViewModel
-                .showBottomNavigationDrawerFragment(getSupportFragmentManager(), addObjectiveFragment);
+                .showBottomDrawerFragment(getSupportFragmentManager(), addObjectiveFragment);
     }
 
     @Override
     public void showSearchProjects() {
         mBottomDrawerViewModel
-                .showBottomNavigationDrawerFragment(getSupportFragmentManager(), null);
+                .showBottomDrawerFragment(getSupportFragmentManager(), null);
     }
 
     private void setupViewModel() {
@@ -132,6 +135,9 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         ObjectivesViewModelFactory factory = Injector.provideObjectivesViewModelFactory(context);
         mObjectivesViewModel = ViewModelProviders.of(this, factory).get(ObjectivesViewModel.class);
         mObjectivesViewModel.onActivityCreated(this);
+        // load latest active project
+        mObjectivesViewModel.selectedProjectId.set(PreferenceRepository.getActiveProjectId(this));
+
         mBottomDrawerViewModel = ViewModelProviders.of(this).get(BottomDrawerViewModel.class);
     }
 

@@ -19,6 +19,7 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.KeyResul
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Objective;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Project;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.User;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.dao.ObjectiveDao;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.dao.ProjectDao;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.dao.UserDao;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.PreferenceRepository;
@@ -42,6 +43,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ProjectDao projectDao();
 
+    public abstract ObjectiveDao objectiveDao();
+
     public static final String DB_NAME = "app_db";
     private static AppDatabase instance;
 
@@ -56,7 +59,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return instance;
     }
 
-    public static void destroyDatabase() {
+    public static void destroyInstance() {
         instance = null;
     }
 

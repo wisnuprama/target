@@ -8,7 +8,7 @@ public class BottomDrawerViewModel extends ViewModel {
 
     private BottomDrawerFragment mBottomDrawerFragment;
 
-    public BottomDrawerFragment showBottomNavigationDrawerFragment(FragmentManager fragmentManager, Fragment childFragment) {
+    public BottomDrawerFragment showBottomDrawerFragment(FragmentManager fragmentManager, Fragment childFragment) {
         if(mBottomDrawerFragment == null) {
             mBottomDrawerFragment = BottomDrawerFragment.newInstance();
         }
@@ -18,5 +18,11 @@ public class BottomDrawerViewModel extends ViewModel {
         }
         mBottomDrawerFragment.show(fragmentManager, mBottomDrawerFragment.getTag());
         return mBottomDrawerFragment;
+    }
+
+    public void dismissBottomDrawerFragment() {
+        if(mBottomDrawerFragment != null) {
+            mBottomDrawerFragment.dismiss();
+        }
     }
 }

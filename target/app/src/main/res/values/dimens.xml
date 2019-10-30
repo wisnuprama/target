@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <resources>
     <dimen name="bottom_drawer_min_height">0dp</dimen>
-    <dimen name="bottom_drawer_radius">16dp</dimen>
-    <dimen name="bottom_drawer_padding">16dp</dimen>
+    <dimen name="corner_radius">16dp</dimen>
+    <dimen name="p16">16dp</dimen>
+    <dimen name="p12">12dp</dimen>
+    <dimen name="p10">10dp</dimen>
 </resources>

@@ -9,8 +9,12 @@ import androidx.databinding.ObservableInt;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Objective;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Project;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ObjectiveRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ProjectRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
 
@@ -20,22 +24,33 @@ public class ObjectivesViewModel extends ViewModel {
 
     private ProjectRepository mProjectRepository;
 
+    private ObjectiveRepository mObjectiveRepository;
+
     public final ObservableInt selectedProjectId = new ObservableInt();
 
     public LiveData<Project> projectLiveData;
 
-    public ObjectivesViewModel(ProjectRepository projectRepository) {
+    public LiveData<List<Objective>> objectivesLiveData;
+
+    public ObjectivesViewModel(ProjectRepository projectRepository, ObjectiveRepository objectiveRepository) {
         mProjectRepository = projectRepository;
+        mObjectiveRepository = objectiveRepository;
+    }
+
+    @Deprecated
+    public void onActivityCreated(@NonNull OkrNavigator okrNavigator) {
+        mOkrNavigator = okrNavigator;
+    }
+
+    public void onActivityCreated() {
         selectedProjectId.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                projectLiveData = mProjectRepository.getProject(selectedProjectId.get());
+                int projectId = selectedProjectId.get();
+                projectLiveData = mProjectRepository.getProject(projectId);
+                objectivesLiveData = mObjectiveRepository.getProjectObjectives(projectId);
             }
         });
-    }
-
-    public void onActivityCreated(@NonNull OkrNavigator okrNavigator) {
-        mOkrNavigator = okrNavigator;
     }
 
     public void onActivityDestroyed() {

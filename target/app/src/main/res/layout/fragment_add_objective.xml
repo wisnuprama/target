@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="addObjectiveViewModel"
+            type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModel" />
     </data>
 
     <LinearLayout
@@ -24,6 +26,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_objective_title"
                     android:inputType="text"
+                    android:hint="@string/objective"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -35,6 +38,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_objective_reason"
                     android:inputType="text"
+                    android:hint="@string/add_objective_rational_hint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -44,20 +48,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/objective_deadline"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_search_24dp"
+                app:icon="@drawable/ic_event_available_24dp"
+                app:iconTint="@color/primary_color_accent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/materialButton"
+                android:id="@+id/objective_save"
                 style="@style/AppTheme.PrimaryTextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_save"
+                android:onClick="@{(view) -> addObjectiveViewModel.addObjective(view)}"
                 app:rippleColor="@color/primary_color_accent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
