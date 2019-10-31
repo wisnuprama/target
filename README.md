@@ -1,10 +1,8 @@
-<div style="text-align:center">
-![alt text](https://raw.githubusercontent.com/wisnuprama/target/master/AppIcon.svg?sanitize=true "App Logo")
-</div>
+![App Logo](https://raw.githubusercontent.com/wisnuprama/target/master/AppIcon.svg?sanitize=true)
 
 # Target App
 
-I will [Objective] as measured by [this set of Key Results]
+> I will [Objective] as measured by [this set of Key Results]
 
 Target is an Android based application to help personal user with their life objectives. It uses Objective Key Result (OKR) as its methodology to help users achieve and manage their goals.
 
