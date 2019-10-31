@@ -1,3 +1,7 @@
+<div style="text-align:center">
+![alt text](https://raw.githubusercontent.com/wisnuprama/target/master/AppIcon.svg?sanitize=true "App Logo")
+</div>
+
 # Target App
 
 I will [Objective] as measured by [this set of Key Results]
