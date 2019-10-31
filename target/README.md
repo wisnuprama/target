@@ -8,7 +8,8 @@ I have used Google Tasks and think that it is a life saver. As I use it everyday
 
 So here we can see the high fidelity UI. It uses Material.io and Google Tasks as the reference.
 
-# TODO
+## TODO
+
 - [x] Activity
 - [x] Service & Remote method
 - [] ContentProvider
