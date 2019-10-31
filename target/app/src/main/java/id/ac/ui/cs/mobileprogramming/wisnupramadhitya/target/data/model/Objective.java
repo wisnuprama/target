@@ -115,6 +115,7 @@ public class Objective {
     }
 
     public Long getRemainingDay() {
+        if(getDeadline() == null) return -1L;
         final LocalDate today = LocalDate.now();
         long remaining = ChronoUnit.DAYS.between(today, getDeadline());
         return remaining > 0 ? remaining : 0;

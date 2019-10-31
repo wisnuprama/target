@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Objective;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.ObjectiveWithKeyResults;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Project;
 
 @Dao
@@ -27,4 +29,8 @@ public interface ObjectiveDao {
 
     @Query("SELECT * FROM objective WHERE id = :objectiveId")
     LiveData<Project> getObjectiveById(Integer objectiveId);
+
+    @Transaction
+    @Query("SELECT * FROM objective WHERE project_id = :projectId ORDER BY date_created DESC")
+    LiveData<List<ObjectiveWithKeyResults>> getObjectiveWithKeyResultsByProjectId(Integer projectId);
 }

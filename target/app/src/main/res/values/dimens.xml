@@ -5,4 +5,6 @@
     <dimen name="p16">16dp</dimen>
     <dimen name="p12">12dp</dimen>
     <dimen name="p10">10dp</dimen>
+    <dimen name="p6">6dp</dimen>
+    <dimen name="p4">4dp</dimen>
 </resources>

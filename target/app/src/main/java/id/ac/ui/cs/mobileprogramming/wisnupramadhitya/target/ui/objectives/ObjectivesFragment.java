@@ -11,10 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.adapter.ObjectivesRecyclerViewAdapter;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.databinding.FragmentObjectivesBinding;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
@@ -27,8 +31,11 @@ public class ObjectivesFragment extends Fragment {
     protected TextView mTextView;
 
     private ObjectivesViewModel mViewModel;
-
     private FragmentObjectivesBinding mFragmentObjectivesBinding;
+
+    @BindView(R.id.objectives_recycler_view)
+    protected RecyclerView mObjectivesRecyclerView;
+    private ObjectivesRecyclerViewAdapter mObjectivesAdapter;
 
     public static ObjectivesFragment newInstance() {
         return new ObjectivesFragment();
@@ -55,5 +62,18 @@ public class ObjectivesFragment extends Fragment {
         mViewModel.onActivityCreated();
         // load latest active project
         mViewModel.selectedProjectId.set(PreferenceRepository.getActiveProjectId(getActivity()));
+
+        mObjectivesRecyclerView.setHasFixedSize(true);
+        mObjectivesAdapter = new ObjectivesRecyclerViewAdapter(new ArrayList<>());
+        mObjectivesRecyclerView.setAdapter(mObjectivesAdapter);
+        subscribeUI();
+    }
+
+    private void subscribeUI() {
+        mViewModel.getObjectiveLiveData()
+                .observe(getViewLifecycleOwner(),
+                          objectives -> {
+                              mObjectivesAdapter.updateItems(objectives);
+                          });
     }
 }
