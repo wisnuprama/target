@@ -7,4 +7,5 @@
     <dimen name="p10">10dp</dimen>
     <dimen name="p6">6dp</dimen>
     <dimen name="p4">4dp</dimen>
+    <dimen name="border_width">1dp</dimen>
 </resources>
