@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/primary_light_color</item>
         <item name="colorPrimaryDark">@color/primary_dark_color</item>
         <item name="colorAccent">@color/primary_color_accent</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetDialog</item>
     </style>
 
     <style name="AppTheme.Launcher" parent="AppTheme">
@@ -17,11 +19,31 @@
         <item name="colorPrimary">@color/primary_light_color</item>
         <item name="colorPrimaryDark">@color/primary_dark_color</item>
         <item name="colorAccent">@color/primary_color_accent</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetDialog</item>
     </style>
 
     <style name="AppTheme.ProjectName" parent="TextAppearance.AppCompat.Display1">
         <item name="android:textFontWeight">500</item>
         <item name="android:textColor">@color/primary_text_color</item>
+    </style>
+
+    <style name="AppTheme.BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppTheme.Modal</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.Modal" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/top_left_right_radius_radius_16</item>
+    </style>
+
+    <style name="AppTheme.TextInputTransparent" parent="Widget.Design.TextInputLayout">
+    </style>
+
+    <style name="AppTheme.PrimaryTextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">?attr/colorAccent</item>
     </style>
 
 </resources>

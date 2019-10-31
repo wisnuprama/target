@@ -1,7 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer;
 
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,6 @@ public class BottomDrawerFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
         loadChildFragment();
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
