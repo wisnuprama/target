@@ -1,5 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class ProjectRepository implements ProjectDataSource {
         return mProjectDao.getProjectById(projectId);
     }
 
-    public static synchronized ProjectRepository getInstance(ProjectDao projectDao) {
+    public static synchronized ProjectRepository getInstance(@NonNull ProjectDao projectDao) {
         if(instance == null) {
             instance = new ProjectRepository(projectDao);
         }

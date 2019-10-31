@@ -5,21 +5,24 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ObjectiveRepository;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ProjectRepository;
 
-public class ObjectivesViewModelFactory extends ViewModelProvider.NewInstanceFactory {
-    private ProjectRepository mProjectRepository;
+public class AddObjectiveViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+
     private ObjectiveRepository mObjectiveRepository;
+    private String mUserId;
+    private Integer mProjectId;
 
-    public ObjectivesViewModelFactory(ProjectRepository projectRepository, ObjectiveRepository objectiveRepository) {
-        mProjectRepository = projectRepository;
+    public AddObjectiveViewModelFactory(ObjectiveRepository objectiveRepository,
+                                        String userId, Integer projectId) {
         mObjectiveRepository = objectiveRepository;
+        mUserId = userId;
+        mProjectId = projectId;
     }
 
     @SuppressWarnings("unchecked")
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new ObjectivesViewModel(mProjectRepository, mObjectiveRepository);
+        return (T) new AddObjectiveViewModel(mObjectiveRepository, mUserId, mProjectId);
     }
 }
