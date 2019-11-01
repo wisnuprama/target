@@ -14,19 +14,19 @@ So here we can see the high fidelity UI. It uses Material.io and Google Tasks as
 
 - [x] Activity
 - [x] Service & Remote method
-- [] ContentProvider
--- [] SearchRecentSuggestionProvider
--- [] FileProvider: backup/export
+- [ ] ContentProvider
+  - [ ] SearchRecentSuggestionProvider
+  - [ ] FileProvider: backup/export
 - [x] BroadcastReceiver
 - [x] Background Process
--- [] AlarmManager
--- [x] AsyncTask: load db
--- [x] JobScheduler and JobService
-- [] Multi Layout
-- [] Multi Language
+  - [ ] AlarmManager
+  - [x] AsyncTask: load db
+  - [x] JobScheduler and JobService
+- [ ] Multi Layout
+- [ ] Multi Language
 - [x] Asset
 - [x] MVVM
 - [x] Background Task
--- [] Backup/Export
--- [] AsyncTask
+  - [ ] Backup/Export
+  - [x] AsyncTask
 - [x] Data Persistence
