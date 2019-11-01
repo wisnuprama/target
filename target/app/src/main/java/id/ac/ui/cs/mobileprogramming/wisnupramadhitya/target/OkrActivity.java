@@ -2,6 +2,7 @@ package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.room.Transaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -60,7 +62,7 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, ObjectivesFragment.newInstance())
+                    .replace(R.id.container_about, ObjectivesFragment.newInstance())
                     .commitNow();
         }
     }
@@ -147,18 +149,24 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     private void setupFirstRun() {
         final Context context = getApplicationContext();
-        try {
-            if(PreferenceRepository.isFirstRun(context)) {
-                // run in main thread because the data must be ready at first run
-                AppDatabase.seedUser(context);
-                AppDatabase.seedProject(context);
-                PreferenceRepository.setFirstRunCompleted(context);
+        // run in main thread because the data must be ready at first run
+        AsyncTask.execute(new Runnable() {
+            @Transaction
+            @Override
+            public void run() {
+                try {
+                    if(PreferenceRepository.isFirstRun(context)) {
+                        AppDatabase.seedUser(context);
+                        AppDatabase.seedProject(context);
+                        PreferenceRepository.setFirstRunCompleted(context);
+                    }
+                } catch (IOException e) {
+                    if (BuildConfig.DEBUG) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        } catch (IOException e) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace();
-            }
-        }
+        });
     }
 
     /**

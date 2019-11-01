@@ -10,6 +10,7 @@ import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Objective;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.ObjectiveWithKeyResults;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.ObjectiveDataSource;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.dao.ObjectiveDao;
 
 public class ObjectiveRepository implements ObjectiveDataSource {

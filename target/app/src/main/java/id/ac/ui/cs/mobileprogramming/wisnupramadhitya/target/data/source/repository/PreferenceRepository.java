@@ -54,7 +54,7 @@ public class PreferenceRepository {
 
     public static boolean isFirstRun(@NonNull Context context) {
         String key = context.getString(R.string.first_run);
-        return getSharedPreferences(context).getBoolean(key, false);
+        return !getSharedPreferences(context).getBoolean(key, false);
     }
 
     public static void setFirstRunCompleted(@NonNull Context context) {

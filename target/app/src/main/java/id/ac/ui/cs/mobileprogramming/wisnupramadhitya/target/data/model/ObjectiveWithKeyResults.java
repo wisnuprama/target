@@ -6,7 +6,9 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class ObjectiveWithKeyResults {
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.adapter.DiffItem;
+
+public class ObjectiveWithKeyResults implements DiffItem<ObjectiveWithKeyResults> {
 
     @Ignore
     private Integer totalCompleted;
@@ -42,5 +44,10 @@ public class ObjectiveWithKeyResults {
         }
 
         return String.format("%s / %s completed", getKeyResults().size(), totalCompleted);
+    }
+
+    @Override
+    public boolean isItemTheSame(ObjectiveWithKeyResults other) {
+        return mObjective.getId().equals(other.getObjective().getId());
     }
 }

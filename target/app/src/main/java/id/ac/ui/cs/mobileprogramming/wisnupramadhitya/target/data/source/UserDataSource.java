@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source;
 
 import androidx.lifecycle.LiveData;
 

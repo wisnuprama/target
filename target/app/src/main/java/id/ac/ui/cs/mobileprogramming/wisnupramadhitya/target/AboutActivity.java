@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.about.AboutFragment;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.about.RecentInfoFragment;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -15,7 +16,8 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, AboutFragment.newInstance())
+                    .replace(R.id.container_about, AboutFragment.newInstance())
+                    .replace(R.id.container_recent_info, RecentInfoFragment.newInstance())
                     .commitNow();
         }
 

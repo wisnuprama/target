@@ -49,9 +49,11 @@ dependencies {
     implementation "android.arch.work:work-runtime:$rootProject.workVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerviewVersion"
     implementation "androidx.recyclerview:recyclerview-selection:$rootProject.recyclerviewVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
 
     implementation "com.android.databinding:library:$rootProject.databindingVersion"
+    implementation "com.android.volley:volley:$rootProject.volleyVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 

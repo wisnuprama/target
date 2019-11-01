@@ -31,7 +31,7 @@ public class AddObjectiveFragment extends Fragment {
 
     private AddObjectiveViewModel mViewModel;
 
-    private FragmentAddObjectiveBinding mFragmentAddObjectiveBinding;
+    private FragmentAddObjectiveBinding mBinding;
 
     public static AddObjectiveFragment newInstance(String userId, int projectId) {
         AddObjectiveFragment fragment = new AddObjectiveFragment();
@@ -45,10 +45,10 @@ public class AddObjectiveFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mFragmentAddObjectiveBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_objective,
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_objective,
                                                                container, false);
-        mFragmentAddObjectiveBinding.setLifecycleOwner(this);
-        View view = mFragmentAddObjectiveBinding.getRoot();
+        mBinding.setLifecycleOwner(getViewLifecycleOwner());
+        View view = mBinding.getRoot();
         ButterKnife.bind(this, view);
         mTitleTextInputEditText.requestFocus();
         return view;
@@ -62,7 +62,7 @@ public class AddObjectiveFragment extends Fragment {
         AddObjectiveViewModelFactory viewModelFactory = Injector
                 .provideAddObjectiveViewModelFactory(getActivity(), userId, projectId);
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(AddObjectiveViewModel.class);
-        mFragmentAddObjectiveBinding.setAddObjectiveViewModel(mViewModel);
+        mBinding.setAddObjectiveViewModel(mViewModel);
     }
 
 }

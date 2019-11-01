@@ -56,13 +56,20 @@ public class ObjectivesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setupViewModel();
+        setupObjectivesRecyclerView();
+    }
+
+    private void setupViewModel() {
         ObjectivesViewModelFactory factory = Injector.provideObjectivesViewModelFactory(getActivity());
         mViewModel = ViewModelProviders.of(this, factory).get(ObjectivesViewModel.class);
         mFragmentObjectivesBinding.setObjectivesViewModel(mViewModel);
         mViewModel.onActivityCreated();
         // load latest active project
         mViewModel.selectedProjectId.set(PreferenceRepository.getActiveProjectId(getActivity()));
+    }
 
+    private void setupObjectivesRecyclerView(){
         mObjectivesRecyclerView.setHasFixedSize(true);
         mObjectivesAdapter = new ObjectivesRecyclerViewAdapter(new ArrayList<>());
         mObjectivesRecyclerView.setAdapter(mObjectivesAdapter);
