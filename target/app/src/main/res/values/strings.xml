@@ -2,6 +2,8 @@
     <string name="app_name">Target</string>
 
     <!--  General  -->
+    <string name="tktpl">TKTPL</string>
+    <string name="author_name">Wisnu Pramadhitya Ramadhan/1606918055</string>
     <string name="objective">Objective</string>
 
     <!--  Add Objective Form  -->
@@ -48,5 +50,8 @@
 
     <!-- General Button Text -->
     <string name="btn_save">Save</string>
+
+    <!-- Recent Info -->
+    <string name="recent_info_heading">Recent Info</string>
 
 </resources>

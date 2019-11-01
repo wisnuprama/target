@@ -5,11 +5,14 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.AppDatabase;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.remote.RecentInfoRemoteDataSource;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ObjectiveRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ProjectRepository;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.RecentInfoRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.UserRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModelFactory;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModelFactory;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.RecentInfoViewModelFactory;
 
 public class Injector {
 
@@ -28,6 +31,12 @@ public class Injector {
         return ObjectiveRepository.getInstance(appDatabase.objectiveDao());
     }
 
+    private static RecentInfoRepository getRecentInfoRepository(@NonNull Context context) {
+        RecentInfoRemoteDataSource dataSource = RecentInfoRemoteDataSource
+                .getInstance(WebServiceRequestQueue.getInstance(context));
+        return RecentInfoRepository.getInstance(dataSource);
+    }
+
     public static ObjectivesViewModelFactory provideObjectivesViewModelFactory(@NonNull Context context) {
         ProjectRepository projectRepository = getProjectRepository(context);
         ObjectiveRepository objectiveRepository = getObjectiveRepository(context);
@@ -38,5 +47,9 @@ public class Injector {
                                                                                    String userId, Integer projectId) {
         ObjectiveRepository objectiveRepository = getObjectiveRepository(context);
         return new AddObjectiveViewModelFactory(objectiveRepository, userId, projectId);
+    }
+
+    public static RecentInfoViewModelFactory provideRecentInfoViewModelFactory(@NonNull Context context) {
+        return new RecentInfoViewModelFactory(getRecentInfoRepository(context));
     }
 }

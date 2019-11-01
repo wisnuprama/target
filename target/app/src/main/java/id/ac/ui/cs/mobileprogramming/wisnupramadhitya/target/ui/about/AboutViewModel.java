@@ -1,7 +1,0 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.about;
-
-import androidx.lifecycle.ViewModel;
-
-public class AboutViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
-}
