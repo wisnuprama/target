@@ -60,8 +60,8 @@ public class SettingsActivity extends AppCompatActivity {
      * start job to register {@link id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.broadcastreceiver.ThemeModeReceiver}
      * in the background.
      *
-     * TODO register good morning preference
-     * TODO register backup/export button
+     * TODO implement good morning in preference
+     * TODO implement backup/export button in preference
      */
     void onPreferenceChange(SharedPreferences sp, String key) {
         Context context = getApplicationContext();
