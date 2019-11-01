@@ -1,10 +1,14 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.OffsetDateTime;
 
-public class UpdateInfo {
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.adapter.DiffItem;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.gson.OffsetDateTimeConverter;
+
+public class RecentInfo implements DiffItem<RecentInfo> {
 
     @SerializedName("ID")
     private Integer mId;
@@ -22,6 +26,7 @@ public class UpdateInfo {
     private String mContent;
 
     @SerializedName("modified")
+    @JsonAdapter(OffsetDateTimeConverter.class)
     private OffsetDateTime mModified;
 
     public Integer getId() {
@@ -68,8 +73,13 @@ public class UpdateInfo {
         return mModified;
     }
 
-    public void setModified(String modified) {
-        mModified = OffsetDateTime.parse(modified);
+    public void setModified(OffsetDateTime modified) {
+        mModified = modified;
+    }
+
+    @Override
+    public boolean isItemTheSame(RecentInfo other) {
+        return getId().equals(other.getId());
     }
 
     static class Author {

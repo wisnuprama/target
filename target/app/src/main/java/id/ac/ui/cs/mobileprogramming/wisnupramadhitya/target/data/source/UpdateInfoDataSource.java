@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.UpdateInfo;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.RecentInfo;
 
 public interface UpdateInfoDataSource {
 
-    LiveData<List<UpdateInfo>> getUpdateInfos();
+    LiveData<List<RecentInfo>> getUpdateInfos();
 
 }

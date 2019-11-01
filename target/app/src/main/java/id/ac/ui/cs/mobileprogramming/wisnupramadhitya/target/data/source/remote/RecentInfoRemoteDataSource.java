@@ -15,32 +15,32 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.UpdateInfo;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.RecentInfo;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.UpdateInfoDataSource;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.WebServiceRequestQueue;
 
-public class UpdateInfoRemoteDataSource implements UpdateInfoDataSource {
+public class RecentInfoRemoteDataSource implements UpdateInfoDataSource {
     private static final String ENDPOINT = "https://public-api.wordpress.com/rest/v1.1/sites/targetapp.tech.blog/posts/";
 
-    private static UpdateInfoRemoteDataSource instance;
+    private static RecentInfoRemoteDataSource instance;
 
     private WebServiceRequestQueue mRequestQueue;
 
-    private final MutableLiveData<List<UpdateInfo>> mListMutableLiveData;
+    private final MutableLiveData<List<RecentInfo>> mListMutableLiveData;
 
-    public UpdateInfoRemoteDataSource(WebServiceRequestQueue requestQueuel) {
+    public RecentInfoRemoteDataSource(WebServiceRequestQueue requestQueuel) {
         mRequestQueue = requestQueuel;
         mListMutableLiveData = new MutableLiveData<>();
     }
 
     @Override
-    public LiveData<List<UpdateInfo>> getUpdateInfos() {
+    public LiveData<List<RecentInfo>> getUpdateInfos() {
         Response.Listener<JSONObject> listener = response -> {
             try {
                 final String posts = response.getString("posts");
-                List<UpdateInfo> updateInfos = new Gson()
-                        .fromJson(posts, new TypeToken<List<UpdateInfo>>(){}.getType());
-                mListMutableLiveData.postValue(updateInfos);
+                List<RecentInfo> recentInfos = new Gson()
+                        .fromJson(posts, new TypeToken<List<RecentInfo>>(){}.getType());
+                mListMutableLiveData.postValue(recentInfos);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -55,9 +55,9 @@ public class UpdateInfoRemoteDataSource implements UpdateInfoDataSource {
         return mListMutableLiveData;
     }
 
-    public static synchronized UpdateInfoRemoteDataSource getInstance(@NonNull WebServiceRequestQueue requestQueue) {
+    public static synchronized RecentInfoRemoteDataSource getInstance(@NonNull WebServiceRequestQueue requestQueue) {
         if(instance == null) {
-            instance = new UpdateInfoRemoteDataSource(requestQueue);
+            instance = new RecentInfoRemoteDataSource(requestQueue);
         }
         return instance;
     }

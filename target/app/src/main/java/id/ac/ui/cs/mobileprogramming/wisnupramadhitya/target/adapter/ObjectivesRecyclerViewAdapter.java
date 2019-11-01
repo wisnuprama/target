@@ -47,7 +47,7 @@ public class ObjectivesRecyclerViewAdapter extends RecyclerView.Adapter<Objectiv
     }
 
     public void updateItems(List<ObjectiveWithKeyResults> objectives) {
-        final ObjectiveDiffCallback diffCallback = new ObjectiveDiffCallback(this.mObjectives, objectives);
+        final ItemsDiffCallback<ObjectiveWithKeyResults> diffCallback = new ItemsDiffCallback<>(mObjectives, objectives);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 
         mObjectives.clear();
