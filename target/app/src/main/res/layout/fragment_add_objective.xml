@@ -46,32 +46,34 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/objective_deadline"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon"
-                android:layout_width="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="42dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                app:backgroundTint="?attr/colorSurface"
+                app:rippleColor="@color/primary_color_accent"
                 app:icon="@drawable/ic_event_available_24dp"
-                app:iconTint="@color/primary_color_accent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/primary_color_accent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/objective_save"
                 style="@style/AppTheme.PrimaryTextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:text="@string/btn_save"
                 android:onClick="@{(view) -> addObjectiveViewModel.addObjective(view)}"
-                app:rippleColor="@color/primary_color_accent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:enabled="@{!addObjectiveViewModel.title.empty}"
+                app:backgroundTint="?attr/colorSurface"
+                app:rippleColor="@color/primary_color_accent"/>
+        </RelativeLayout>
     </LinearLayout>
 </layout>

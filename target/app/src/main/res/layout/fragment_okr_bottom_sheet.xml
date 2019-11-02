@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent">
+    android:layout_height="wrap_content">
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/bottom_drawer"
         android:layout_width="match_parent"
@@ -15,6 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <FrameLayout
+            android:background="?attr/colorSurface"
             android:id="@+id/bottom_drawer_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
