@@ -23,8 +23,8 @@ public class ThemeModeJobService extends JobService {
         ComponentName serviceComponent = new ComponentName(context, ThemeModeJobService.class);
 
         // build the job
-        JobInfo.Builder jobBuilder = new JobInfo.Builder(JOB_ID, serviceComponent);
-        jobBuilder.setRequiresBatteryNotLow(false) // because we want to handle theme in low or not
+        JobInfo.Builder jobBuilder = new JobInfo.Builder(JOB_ID, serviceComponent)
+                .setRequiresBatteryNotLow(false) // because we want to handle theme in low or not
                 .setRequiresCharging(false) // don't care if the device in charging/not
                 .setMinimumLatency(REFRESH_INTERVAL);
 
