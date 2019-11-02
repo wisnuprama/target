@@ -6,6 +6,11 @@
     <string name="author_name">Wisnu Pramadhitya Ramadhan/1606918055</string>
     <string name="objective">Objective</string>
 
+    <!--  Notification  -->
+    <string name="default_channel_name">Notification</string>
+    <string name="default_channel_description">All notification</string>
+    <string name="notif_good_morning_content">Let\'s review your targets!</string>
+
     <!--  Add Objective Form  -->
     <string name="add_objective_rational_hint">Objective details &#8230;</string>
 

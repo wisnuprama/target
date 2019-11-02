@@ -6,6 +6,7 @@
     <dist:module dist:instant="true" />
     <!-- PERMISSION -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -54,10 +55,14 @@
             android:name=".service.ThemeModeJobService"
             android:label="Powersave service"
             android:permission="android.permission.BIND_JOB_SERVICE"></service> <!-- BROADCAST -->
-        <receiver android:name=".broadcastreceiver.BootReceiver">
+        <receiver android:name=".broadcastreceiver.BootReceiver"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
+        </receiver>
+        <receiver android:name=".broadcastreceiver.GoodMorningAlarmReceiver"
+            android:enabled="false">
         </receiver>
     </application>
 

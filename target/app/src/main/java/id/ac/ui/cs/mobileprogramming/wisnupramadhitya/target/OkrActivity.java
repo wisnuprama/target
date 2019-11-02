@@ -28,6 +28,7 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDra
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.NotificationUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModelFactory;
@@ -59,6 +60,9 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         // setup other
         setupViewModel();
         setupButtonListener();
+
+        // notification
+        NotificationUtils.createNotificationChannel(getApplicationContext());
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -173,7 +177,7 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
      * Run schedule job for theme mode service or apply theme
      */
     private void setupThemeModeReceiverOnFresh() {
-        final boolean isAutoDarkMode = PreferenceRepository.getAutoDarkMode(getApplicationContext());
+        final boolean isAutoDarkMode = PreferenceRepository.isAutoDarkModeEnabled(getApplicationContext());
         final String themeMode = PreferenceRepository.getThemeMode(getApplicationContext());
         final boolean isAndroid10 = BuildUtils.isAndroid10();
 
