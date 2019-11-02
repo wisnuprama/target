@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.GoodMorningUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -23,6 +24,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     @BindString(R.string.auto_dark_mode)
     protected String mKeyAutoDarkMode;
+
+    @BindString(R.string.good_morning)
+    protected String mKeyGoodMorning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +64,6 @@ public class SettingsActivity extends AppCompatActivity {
      * start job to register {@link id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.broadcastreceiver.ThemeModeReceiver}
      * in the background.
      *
-     * TODO implement good morning in preference
      * TODO implement backup/export button in preference
      */
     void onPreferenceChange(SharedPreferences sp, String key) {
@@ -69,6 +72,14 @@ public class SettingsActivity extends AppCompatActivity {
             ThemeUtils.applyTheme(PreferenceRepository.getThemeMode(context));
         } else if(mKeyAutoDarkMode.equals(key)) {
             ThemeModeJobService.scheduleJob(getApplicationContext());
+        } else if(mKeyGoodMorning.equals(key)) {
+            boolean isEnabled = PreferenceRepository.isGoodMorningActive(context);
+            GoodMorningUtils.setReceiverEnabled(context, isEnabled);
+            if(isEnabled) {
+                GoodMorningUtils.startGoodMorning(context);
+            } else {
+                GoodMorningUtils.cancelGoodMorning(context);
+            }
         }
     }
 
