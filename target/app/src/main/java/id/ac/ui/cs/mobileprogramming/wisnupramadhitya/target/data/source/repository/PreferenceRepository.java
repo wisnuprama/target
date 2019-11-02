@@ -10,6 +10,9 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 
 public class PreferenceRepository {
 
+    private PreferenceRepository() {
+    }
+
     public static SharedPreferences getSharedPreferences(@NonNull Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
@@ -18,7 +21,7 @@ public class PreferenceRepository {
         return getSharedPreferences(context).edit();
     }
 
-    public static boolean getAutoDarkMode(@NonNull Context context) {
+    public static boolean isAutoDarkModeEnabled(@NonNull Context context) {
         String key = context.getString(R.string.auto_dark_mode);
         return getSharedPreferences(context).getBoolean(key, false);
     }
@@ -62,5 +65,18 @@ public class PreferenceRepository {
         getEditor(context)
                 .putBoolean(key, true)
                 .apply();
+    }
+
+    public static void setGoodMorning(@NonNull Context context, boolean value) {
+        String key = context.getString(R.string.good_morning);
+        getEditor(context)
+                .putBoolean(key, value)
+                .apply();
+    }
+
+    public static boolean isGoodMorningActive(@NonNull Context context) {
+        String key = context.getString(R.string.good_morning);
+        return getSharedPreferences(context)
+                .getBoolean(key, false);
     }
 }
