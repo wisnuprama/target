@@ -22,17 +22,17 @@ public class ProjectRepository implements ProjectDataSource {
 
     @Override
     public LiveData<List<Project>> getProjects() {
-        return mProjectDao.getProjects();
+        return mProjectDao.findAllProjects();
     }
 
     @Override
     public LiveData<List<Project>> getUserProjects(String userId) {
-        return mProjectDao.getProjectsByUserId(userId);
+        return mProjectDao.findProjectsByUserId(userId);
     }
 
     @Override
     public LiveData<Project> getProject(Integer projectId) {
-        return mProjectDao.getProjectById(projectId);
+        return mProjectDao.findProjectById(projectId);
     }
 
     public static synchronized ProjectRepository getInstance(@NonNull ProjectDao projectDao) {

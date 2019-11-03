@@ -16,12 +16,14 @@ public interface ProjectDao {
     void insertAll(Project... projects);
 
     @Query("SELECT * FROM project WHERE owner_id = :userId")
-    LiveData<List<Project>> getProjectsByUserId(String userId);
+    LiveData<List<Project>> findProjectsByUserId(String userId);
 
     @Query("SELECT * FROM project")
-    LiveData<List<Project>> getProjects();
+    LiveData<List<Project>> findAllProjects();
 
     @Query("SELECT * FROM project WHERE id = :projectId")
-    LiveData<Project> getProjectById(Integer projectId);
+    LiveData<Project> findProjectById(Integer projectId);
 
+    @Query("SELECT * FROM project WHERE owner_id = :userId")
+    List<Project> getProjectsByUserId(String userId);
 }

@@ -18,7 +18,7 @@ public class UserRepository implements UserDataSource {
 
     @Override
     public LiveData<User> getUser(String userId) {
-        return mUserDao.getUserById(userId);
+        return mUserDao.findUserById(userId);
     }
 
     public static synchronized UserRepository getInstance(UserDao userDao) {

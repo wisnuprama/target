@@ -50,11 +50,26 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.OkrActivity" />
-        </activity> <!-- SERVICE -->
+        </activity>
+
+        <!-- SERVICE -->
         <service
             android:name=".service.ThemeModeJobService"
             android:label="Powersave service"
-            android:permission="android.permission.BIND_JOB_SERVICE"></service> <!-- BROADCAST -->
+            android:permission="android.permission.BIND_JOB_SERVICE"></service>
+
+        <!-- CONTENT PROVIDEr -->
+        <provider
+            android:authorities="${applicationId}"
+            android:name="androidx.core.content.FileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+        <!-- BROADCAST -->
         <receiver android:name=".broadcastreceiver.BootReceiver"
             android:enabled="true">
             <intent-filter>

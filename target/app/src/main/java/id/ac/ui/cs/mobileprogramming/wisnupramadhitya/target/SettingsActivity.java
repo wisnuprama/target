@@ -2,18 +2,26 @@ package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.DataExporter;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.GoodMorningUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 
@@ -28,13 +36,16 @@ public class SettingsActivity extends AppCompatActivity {
     @BindString(R.string.good_morning)
     protected String mKeyGoodMorning;
 
+    @BindView(R.id.progressBarHolder)
+    protected FrameLayout mProgressBarHolder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.settings, new SettingsFragment())
+                .replace(R.id.settings, SettingsFragment.newInstance(this))
                 .commit();
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -63,8 +74,6 @@ public class SettingsActivity extends AppCompatActivity {
      * If auto dark mode on
      * start job to register {@link id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.broadcastreceiver.ThemeModeReceiver}
      * in the background.
-     *
-     * TODO implement backup/export button in preference
      */
     void onPreferenceChange(SharedPreferences sp, String key) {
         Context context = getApplicationContext();
@@ -83,11 +92,53 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    public void showProgressbar() {
+        AlphaAnimation inAnimation = new AlphaAnimation(0f, 1f);
+        inAnimation.setDuration(200);
+        mProgressBarHolder.setAnimation(inAnimation);
+        mProgressBarHolder.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar() {
+        AlphaAnimation outAnimation = new AlphaAnimation(1f, 0f);
+        outAnimation.setDuration(200);
+        mProgressBarHolder.setAnimation(outAnimation);
+        mProgressBarHolder.setVisibility(View.GONE);
+    }
+
     public static class SettingsFragment extends PreferenceFragmentCompat {
+
+        public static SettingsFragment newInstance(SettingsActivity settingsActivity) {
+            return new SettingsFragment(settingsActivity);
+        }
+
+        SettingsActivity mSettingsActivity;
+
+        public SettingsFragment(SettingsActivity settingsActivity) {
+            mSettingsActivity = settingsActivity;
+        }
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             disabledAutoDarkModeWhenOnDarkMode();
+            setupExportButton();
+        }
+
+        void setupExportButton() {
+            Preference exportBtn = findPreference(getString(R.string.backup));
+            exportBtn.setOnPreferenceClickListener((preference -> {
+                mSettingsActivity.showProgressbar();
+                Handler handler = new Handler();
+                handler.postDelayed(() -> AsyncTask.execute(() -> {
+                    new DataExporter(getContext())
+                            .write()
+                            .buildIntent()
+                            .share(getActivity());
+                    getActivity().runOnUiThread(mSettingsActivity::hideProgressBar);
+                }), 1000);
+                return true;
+            }));
         }
 
         void disabledAutoDarkModeWhenOnDarkMode() {
@@ -103,3 +154,4 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 }
+

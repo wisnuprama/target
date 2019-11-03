@@ -19,18 +19,22 @@ public interface ObjectiveDao {
     void insertAll(Objective... objectives);
 
     @Query("SELECT * FROM objective")
-    LiveData<List<Objective>> getObjectives();
+    LiveData<List<Objective>> findAllObjectives();
 
     @Query("SELECT * FROM objective WHERE owner_id = :userId")
-    LiveData<List<Objective>> getObjectivesByUserId(String userId);
+    LiveData<List<Objective>> findObjectivesByUserId(String userId);
 
     @Query("SELECT * FROM objective WHERE project_id = :projectId")
-    LiveData<List<Objective>> getObjectivesByProjectId(Integer projectId);
+    LiveData<List<Objective>> findObjectivesByProjectId(Integer projectId);
 
     @Query("SELECT * FROM objective WHERE id = :objectiveId")
-    LiveData<Project> getObjectiveById(Integer objectiveId);
+    LiveData<Project> findObjectiveById(Integer objectiveId);
 
     @Transaction
     @Query("SELECT * FROM objective WHERE project_id = :projectId ORDER BY date_created DESC")
-    LiveData<List<ObjectiveWithKeyResults>> getObjectiveWithKeyResultsByProjectId(Integer projectId);
+    LiveData<List<ObjectiveWithKeyResults>> findObjectiveWithKeyResultsByProjectId(Integer projectId);
+
+    @Transaction
+    @Query("SELECT * FROM objective WHERE owner_id = :userId ORDER BY date_created DESC")
+    List<ObjectiveWithKeyResults> getObjectiveWithKeyResultsByUserId(String userId);
 }
