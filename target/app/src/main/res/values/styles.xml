@@ -27,7 +27,7 @@
 
     <style name="AppTheme.ProjectName" parent="TextAppearance.AppCompat.Display1">
         <item name="android:textFontWeight">500</item>
-        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
     <style name="AppTheme.BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
@@ -45,7 +45,7 @@
     </style>
 
     <style name="AppTheme.PrimaryTextButton" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
 </resources>

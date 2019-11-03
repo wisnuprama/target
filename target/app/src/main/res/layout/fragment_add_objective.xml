@@ -75,7 +75,7 @@
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:icon="@drawable/ic_event_available_24dp"
-                app:iconTint="@color/primary_color_accent"/>
+                app:iconTint="?attr/colorOnSurface"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/objective_deadline_chip"

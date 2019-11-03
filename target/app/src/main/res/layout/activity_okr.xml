@@ -21,6 +21,7 @@
         app:fabAlignmentMode="center"
         app:fabAnimationMode="slide"
         app:menu="@menu/objectives_bottom_appbar_menu"
+        app:hideOnScroll="true"
         app:navigationContentDescription="@string/menu_description"
         app:navigationIcon="@drawable/ic_menu_24dp" />
 

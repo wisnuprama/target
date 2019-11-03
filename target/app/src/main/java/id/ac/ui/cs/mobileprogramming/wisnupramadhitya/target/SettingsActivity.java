@@ -109,12 +109,13 @@ public class SettingsActivity extends AppCompatActivity {
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
         public static SettingsFragment newInstance(SettingsActivity settingsActivity) {
-            return new SettingsFragment(settingsActivity);
+            SettingsFragment settingsFragment = new SettingsFragment();
+            settingsFragment.setSettingsActivity(settingsActivity);
+            return settingsFragment;
         }
 
         SettingsActivity mSettingsActivity;
-
-        public SettingsFragment(SettingsActivity settingsActivity) {
+        public void setSettingsActivity(SettingsActivity settingsActivity) {
             mSettingsActivity = settingsActivity;
         }
 
