@@ -34,7 +34,7 @@ public class ObjectiveRepository implements ObjectiveDataSource {
 
     @Override
     public LiveData<List<ObjectiveWithKeyResults>> getProjectObjectives(Integer projectId) {
-        return mObjectiveDao.getObjectiveWithKeyResultsByProjectId(projectId);
+        return mObjectiveDao.findObjectiveWithKeyResultsByProjectId(projectId);
     }
 
     public static synchronized ObjectiveRepository getInstance(@NonNull ObjectiveDao objectiveDao) {

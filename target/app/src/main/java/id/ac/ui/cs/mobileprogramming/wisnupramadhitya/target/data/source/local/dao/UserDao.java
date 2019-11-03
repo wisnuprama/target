@@ -14,5 +14,8 @@ public interface UserDao {
     void insertAll(User... users);
 
     @Query("SELECT * FROM user WHERE id = :userId LIMIT 1")
-    LiveData<User> getUserById(String userId);
+    LiveData<User> findUserById(String userId);
+
+    @Query("SELECT * FROM user WHERE id = :userId LIMIT 1")
+    User getUserById(String userId);
 }
