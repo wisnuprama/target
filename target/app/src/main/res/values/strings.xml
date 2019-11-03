@@ -2,14 +2,14 @@
     <string name="app_name">Target</string>
 
     <!--  General  -->
-    <string name="tktpl">TKTPL</string>
+    <string name="tktpl" translatable="false">TKTPL</string>
     <string name="author_name">Wisnu Pramadhitya Ramadhan/1606918055</string>
     <string name="objective">Objective</string>
-    <string name="under_development">Sorry the feature is under development, please come later.</string>
+    <string name="under_development">Sorry the feature is under development. Please come later.</string>
 
     <!--  Notification  -->
     <string name="default_channel_name">Notification</string>
-    <string name="default_channel_description">All notification</string>
+    <string name="default_channel_description">All notifications</string>
     <string name="notif_good_morning_content">Let\'s review your targets!</string>
 
     <!--  Add Objective Form  -->
@@ -33,26 +33,26 @@
     <string name="about_header">About</string>
 
     <!-- Preference Keys -->
-    <string name="good_morning">good_morning</string>
-    <string name="backup">backup</string>
-    <string name="auto_dark_mode">auto_dark_mode</string>
-    <string name="theme_mode">theme_mode</string>
-    <string name="active_user_id">active_user_id</string>
-    <string name="active_project_id">active_project_id</string>
-    <string name="first_run">first_run</string>
+    <string name="good_morning" translatable="false">good_morning</string>
+    <string name="backup" translatable="false">backup</string>
+    <string name="auto_dark_mode" translatable="false">auto_dark_mode</string>
+    <string name="theme_mode" translatable="false">theme_mode</string>
+    <string name="active_user_id" translatable="false">active_user_id</string>
+    <string name="active_project_id" translatable="false">active_project_id</string>
+    <string name="first_run" translatable="false">first_run</string>
 
     <!-- General Preferences -->
     <string name="good_morning_title">Good morning</string>
     <string name="good_morning_summary">Remind you every 8 in the morning</string>
     <string name="backup_title">Backup/Export</string>
-    <string name="backup_summary">Back up your data in shareable file</string>
+    <string name="backup_summary">Backup your data in shareable file</string>
 
     <!-- Theme Preferences -->
     <string name="auto_dark_mode_title">Auto dark mode</string>
     <string name="auto_dark_mode_summary">Set to dark mode when battery saver is on. Only for the device before Android 10.</string>
     <string name="theme_mode_title">Theme</string>
-    <string name="theme_value_dark">dark</string>
-    <string name="theme_value_light">light</string>
+    <string name="theme_value_dark" translatable="false">dark</string>
+    <string name="theme_value_light" translatable="false">light</string>
 
     <!-- General Button Text -->
     <string name="btn_save">Save</string>

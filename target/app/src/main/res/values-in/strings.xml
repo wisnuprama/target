@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Target</string>
+    <string name="about_header">Tentang</string>
+    <string name="action_about">Tentang</string>
+    <string name="action_learn_okr">Belajar OKR</string>
+    <string name="action_search">Cari</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="add_objective_rational_hint">Deskripsi objektif &#8230;</string>
+    <string name="author_name">Wisnu Pramadhitya Ramadhan/1606918055</string>
+    <string name="auto_dark_mode_summary">Mengatur menjadi mode gelap ketika penghemat daya diaktifkan. Hanya untuk perangkat sebelum Android 10.</string>
+    <string name="auto_dark_mode_title">Mode gelap otomatis</string>
+    <string name="backup_summary">Cadangkan data menjadi file yang dapat dibagikan</string>
+    <string name="backup_title">Cadangkan/Ekspor</string>
+    <string name="btn_save">Simpan</string>
+    <string name="default_channel_description">Semua notifikasi</string>
+    <string name="default_channel_name">Notifikasi</string>
+    <string name="general_header">Umum</string>
+    <string name="good_morning_summary">Ingatkan Anda setiap pukul 8 pagi</string>
+    <string name="good_morning_title">Selamat pagi</string>
+    <string name="menu_description">Menu</string>
+    <string name="notif_good_morning_content">Ayo review target-target Anda!</string>
+    <string name="objective">Objektif</string>
+    <string name="recent_info_heading">Informasi Terkini</string>
+    <string name="theme_header">Tema</string>
+    <string name="theme_mode_title">Tema</string>
+    <string name="title_activity_about">Tentang</string>
+    <string name="title_activity_learn_okr">Belajar OKR</string>
+    <string name="title_activity_settings">Pengaturan</string>
+    <string name="under_development" translatable="false">Maaf, fitur ini sedang dalam pengembangan. Silahkan datang kembali nanti.</string>
+</resources>
