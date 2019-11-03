@@ -5,6 +5,7 @@
     <string name="tktpl">TKTPL</string>
     <string name="author_name">Wisnu Pramadhitya Ramadhan/1606918055</string>
     <string name="objective">Objective</string>
+    <string name="under_development">Sorry the feature is under development, please come later.</string>
 
     <!--  Notification  -->
     <string name="default_channel_name">Notification</string>

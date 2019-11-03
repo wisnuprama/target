@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="addObjectiveViewModel"
             type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModel" />
@@ -18,16 +19,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/p4">
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/AppTheme.TextInputTransparent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/p6"
+                app:hintEnabled="false">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_objective_title"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:inputType="text"
                     android:hint="@string/objective"
+                    android:background="@null"
                     android:text="@={addObjectiveViewModel.title}"
+                    android:singleLine="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -35,12 +43,18 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/AppTheme.TextInputTransparent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/p6"
+                app:hintEnabled="false">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_objective_reason"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:hint="@string/add_objective_rational_hint"
+                    android:background="@null"
                     android:text="@={addObjectiveViewModel.rational}"
+                    android:lines="3"
+                    android:gravity="start"
+                    android:maxLines="3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -58,10 +72,19 @@
                 android:layout_alignParentStart="true"
                 app:backgroundTint="?attr/colorSurface"
                 app:rippleColor="@color/primary_color_accent"
-                app:icon="@drawable/ic_event_available_24dp"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:iconTint="@color/primary_color_accent" />
+                app:icon="@drawable/ic_event_available_24dp"
+                app:iconTint="@color/primary_color_accent"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/objective_deadline_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/objective_deadline"
+                app:closeIconEnabled="true"
+                android:visibility="@{addObjectiveViewModel.deadline != null ? View.VISIBLE : View.GONE}"
+                android:text="@{addObjectiveViewModel.deadline.toString()}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/objective_save"
@@ -71,9 +94,9 @@
                 android:layout_alignParentEnd="true"
                 android:text="@string/btn_save"
                 android:onClick="@{(view) -> addObjectiveViewModel.addObjective(view)}"
+                app:rippleColor="@color/primary_color_accent"
                 android:enabled="@{!addObjectiveViewModel.title.empty}"
-                app:backgroundTint="?attr/colorSurface"
-                app:rippleColor="@color/primary_color_accent"/>
+                app:backgroundTint="?attr/colorSurface"/>
         </RelativeLayout>
     </LinearLayout>
 </layout>

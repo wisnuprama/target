@@ -1,17 +1,30 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.addobjective;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +41,12 @@ public class AddObjectiveFragment extends Fragment {
 
     @BindView(R.id.edit_text_objective_title)
     protected TextInputEditText mTitleTextInputEditText;
+
+    @BindView(R.id.objective_deadline)
+    protected MaterialButton mDeadlineBtn;
+
+    @BindView(R.id.objective_deadline_chip)
+    protected Chip mDeadlineChip;
 
     private AddObjectiveViewModel mViewModel;
 
@@ -50,7 +69,6 @@ public class AddObjectiveFragment extends Fragment {
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
         View view = mBinding.getRoot();
         ButterKnife.bind(this, view);
-        mTitleTextInputEditText.requestFocus();
         return view;
     }
 
@@ -63,6 +81,59 @@ public class AddObjectiveFragment extends Fragment {
                 .provideAddObjectiveViewModelFactory(getActivity(), userId, projectId);
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(AddObjectiveViewModel.class);
         mBinding.setAddObjectiveViewModel(mViewModel);
+
+        // setup listener
+        mTitleTextInputEditText.requestFocus();
+        mDeadlineBtn.setOnClickListener(this::showDatePickerDialog);
+        mDeadlineChip.setOnCloseIconClickListener(mViewModel::clearDeadline);
+    }
+
+    private void showDatePickerDialog(View v) {
+        // TODO listener doesn't get called
+        //        DialogFragment newFragment = new DatePickerFragment(mViewModel);
+        //        newFragment.show(getChildFragmentManager(), DatePickerFragment.TAG_NAME);
+        Toast.makeText(getActivity(), R.string.under_development, Toast.LENGTH_LONG)
+                .show();
+    }
+
+    public static class DatePickerFragment extends DialogFragment {
+
+        AddObjectiveViewModel mAddObjectiveViewModel;
+
+        public static final String TAG_NAME = "deadlineDatePicker";
+
+        DatePickerFragment(AddObjectiveViewModel addObjectiveViewModel) {
+            mAddObjectiveViewModel = addObjectiveViewModel;
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            OffsetDateTime selectedDate = mAddObjectiveViewModel.deadline.get();
+            final Calendar c = Calendar.getInstance();
+            if(selectedDate != null) {
+                c.set(Calendar.YEAR, selectedDate.getYear());
+                c.set(Calendar.MONTH, selectedDate.getMonthValue());
+                c.set(Calendar.DAY_OF_MONTH, selectedDate.getDayOfMonth());
+            }
+
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this::setDate, year, month, day);
+            datePickerDialog.setOnDateSetListener(this::setDate);
+            return datePickerDialog;
+        }
+
+        void setDate(DatePicker view, int year, int month, int dayOfMonth) {
+            mAddObjectiveViewModel.deadline
+                    .set(OffsetDateTime.of(year, month, dayOfMonth,
+                                           0, 0, 0, 0, ZoneOffset.UTC));
+            this.dismiss();
+        }
     }
 
 }

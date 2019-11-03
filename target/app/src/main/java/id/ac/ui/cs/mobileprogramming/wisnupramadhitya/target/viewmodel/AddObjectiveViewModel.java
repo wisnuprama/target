@@ -38,4 +38,8 @@ public class AddObjectiveViewModel extends ViewModel {
         mObjectiveRepository.createObjective(mUserId, mProjectId, title.get(), rational.get(), deadline.get());
         SnackbarUtils.showSnackbar(view, "Created");
     }
+
+    public void clearDeadline(View view) {
+        deadline.set(null);
+    }
 }
