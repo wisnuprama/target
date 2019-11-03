@@ -131,6 +131,8 @@ public class SettingsActivity extends AppCompatActivity {
             exportBtn.setOnPreferenceClickListener((preference -> {
                 mSettingsActivity.showProgressbar();
                 Handler handler = new Handler();
+                // delay for 1s before start the back up process
+                // for better use experience (not blinked)
                 handler.postDelayed(() -> AsyncTask.execute(() -> {
                     new DataExporter(getContext())
                             .write()
