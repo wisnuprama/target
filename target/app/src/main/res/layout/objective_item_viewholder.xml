@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{objectiveWithKeyResults.objective.remainingDay.toString() + ` Days`}"
-            android:textColor="@color/primary_color_accent"
+            android:textColor="?attr/colorAccent"
             android:visibility="@{objectiveWithKeyResults.objective.remainingDay &lt; 0 ? View.GONE : View.VISIBLE}"
             app:chipBackgroundColor="@color/primary_color_accent_12"
             app:chipEndPadding="@dimen/p16"

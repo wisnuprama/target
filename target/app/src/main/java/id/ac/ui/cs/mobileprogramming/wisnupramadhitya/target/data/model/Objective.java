@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -125,8 +124,9 @@ public class Objective {
 
     public Long getRemainingDay() {
         if(getDeadline() == null) return -1L;
-        final LocalDate today = LocalDate.now();
+        final OffsetDateTime today = OffsetDateTime.now();
         long remaining = ChronoUnit.DAYS.between(today, getDeadline());
-        return remaining > 0 ? remaining : 0;
+        // hacky2 somehow between returns negative for positive
+        return remaining > 0 ? 0 : -remaining;
     }
 }

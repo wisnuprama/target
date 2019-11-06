@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,11 +104,8 @@ public class AddObjectiveFragment extends Fragment {
     }
 
     private void showDatePickerDialog(View v) {
-        // TODO listener doesn't get called
-        //        DialogFragment newFragment = new DatePickerFragment(mViewModel);
-        //        newFragment.show(getChildFragmentManager(), DatePickerFragment.TAG_NAME);
-        Toast.makeText(getActivity(), R.string.under_development, Toast.LENGTH_LONG)
-                .show();
+        DialogFragment newFragment = new DatePickerFragment(mViewModel);
+        newFragment.show(getChildFragmentManager(), DatePickerFragment.TAG_NAME);
     }
 
     public static class DatePickerFragment extends DialogFragment {
