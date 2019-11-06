@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.databinding;
 /*
  *  Copyright 2017 Google Inc.
  *

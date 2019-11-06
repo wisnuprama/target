@@ -8,8 +8,7 @@ import androidx.lifecycle.ViewModel;
 import java.time.OffsetDateTime;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ObjectiveRepository;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.SingleLiveEvent;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.SnackbarUtils;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.databinding.SingleLiveEvent;
 
 public class AddObjectiveViewModel extends ViewModel {
 
