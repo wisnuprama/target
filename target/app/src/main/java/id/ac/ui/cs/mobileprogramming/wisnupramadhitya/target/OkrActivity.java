@@ -26,7 +26,6 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNaviga
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.AddObjectiveFragment;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.DetailObjectiveFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
@@ -66,8 +65,7 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_pane_left, ObjectivesFragment.newInstance())
-                    .replace(R.id.container_pane_right, DetailObjectiveFragment.newInstance())
+                    .replace(R.id.container_objectives, ObjectivesFragment.newInstance())
                     .commitNow();
         }
     }

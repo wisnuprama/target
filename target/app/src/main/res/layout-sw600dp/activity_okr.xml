@@ -9,16 +9,21 @@
     tools:context=".OkrActivity">
 
     <LinearLayout
+        android:baselineAligned="true"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <FrameLayout
-            android:id="@+id/container_pane_left"
-            android:layout_width="300dp"
-            android:layout_height="match_parent" />
-        <FrameLayout
-            android:id="@+id/container_pane_right"
-            android:layout_width="fill_parent"
+        <fragment
+            android:id="@+id/container_objectives"
+            android:name="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.ObjectivesFragment"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <fragment
+            android:id="@+id/container_objective_detail"
+            android:name="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.DetailObjectiveFragment"
+            android:layout_weight="2"
+            android:layout_width="0dp"
             android:layout_height="match_parent" />
     </LinearLayout>
 

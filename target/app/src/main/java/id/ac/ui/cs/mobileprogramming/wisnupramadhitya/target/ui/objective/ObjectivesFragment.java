@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,6 +74,27 @@ public class ObjectivesFragment extends Fragment {
     private void setupObjectivesRecyclerView(){
         mObjectivesRecyclerView.setHasFixedSize(true);
         mObjectivesAdapter = new ObjectivesRecyclerViewAdapter(new ArrayList<>());
+        mObjectivesAdapter.setItemClickListener(objective -> {
+            FragmentActivity activity = getActivity();
+            if(activity != null) {
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                DetailObjectiveFragment detailObjectiveFragment = (DetailObjectiveFragment) fragmentManager
+                        .findFragmentById(R.id.container_objective_detail);
+
+                if(detailObjectiveFragment != null) {
+                    // two-pane layout mode
+                } else {
+                    // one-pane layout mode
+                    fragmentManager
+                            .beginTransaction()
+                            .replace(R.id.container_objectives, DetailObjectiveFragment.newInstance())
+                            .addToBackStack(null)
+                            .commit();
+
+                }
+            }
+        });
+
         mObjectivesRecyclerView.setAdapter(mObjectivesAdapter);
         subscribeUI();
     }
@@ -79,8 +102,6 @@ public class ObjectivesFragment extends Fragment {
     private void subscribeUI() {
         mViewModel.getObjectiveLiveData()
                 .observe(getViewLifecycleOwner(),
-                          objectives -> {
-                              mObjectivesAdapter.updateItems(objectives);
-                          });
+                          objectives -> mObjectivesAdapter.updateItems(objectives));
     }
 }

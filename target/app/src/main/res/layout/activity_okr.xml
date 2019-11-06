@@ -9,14 +9,9 @@
     tools:context=".OkrActivity">
 
     <FrameLayout
-        android:id="@+id/container_pane_left"
+        android:id="@+id/container_objectives"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <FrameLayout
-        android:id="@+id/container_pane_right"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
