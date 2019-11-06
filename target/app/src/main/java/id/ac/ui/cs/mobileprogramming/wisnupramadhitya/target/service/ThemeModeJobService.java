@@ -12,6 +12,10 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.BuildConfig;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.broadcastreceiver.ThemeModeReceiver;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ApplicationReceiverUtils;
 
+/**
+ * Job service for register {@link ThemeModeReceiver} so it can run in background.
+ * We use job service because the Android will manage it.
+ */
 public class ThemeModeJobService extends JobService {
 
     public static final int JOB_ID = 0;

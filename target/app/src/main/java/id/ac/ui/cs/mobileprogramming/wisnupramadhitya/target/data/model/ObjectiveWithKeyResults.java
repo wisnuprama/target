@@ -4,18 +4,23 @@ import androidx.room.Embedded;
 import androidx.room.Ignore;
 import androidx.room.Relation;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.adapter.DiffItem;
 
 public class ObjectiveWithKeyResults implements DiffItem<ObjectiveWithKeyResults> {
 
+    @SerializedName("totalCompleted")
     @Ignore
     private Integer totalCompleted;
 
+    @SerializedName("objective")
     @Embedded
     private Objective mObjective;
 
+    @SerializedName("keyResults")
     @Relation(parentColumn = "id", entityColumn = "objective_id")
     private List<KeyResult> mKeyResults;
 

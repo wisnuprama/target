@@ -15,18 +15,28 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.ObjectiveWithKeyResults;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.databinding.ObjectiveItemViewholderBinding;
 
+/**
+ * Objective recycler views.
+ * Need refactor to BaseRecyclerAdapter because both implementation are same.
+ */
 public class ObjectivesRecyclerViewAdapter extends RecyclerView.Adapter<ObjectivesRecyclerViewAdapter.ObjectiveViewHolder> {
 
     private List<ObjectiveWithKeyResults> mObjectives;
+    private ObjectiveClickListener mItemClickListener;
 
     public ObjectivesRecyclerViewAdapter(List<ObjectiveWithKeyResults> objectives) {
         mObjectives = objectives;
+    }
+
+    public void setItemClickListener(ObjectiveClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 
     @NonNull
     @Override
     public ObjectiveViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        // binding the layout viewholder
         ObjectiveItemViewholderBinding binding = DataBindingUtil
                 .inflate(layoutInflater, R.layout.objective_item_viewholder, parent, false);
         return new ObjectiveViewHolder(binding);
@@ -35,8 +45,11 @@ public class ObjectivesRecyclerViewAdapter extends RecyclerView.Adapter<Objectiv
     @Override
     public void onBindViewHolder(@NonNull ObjectiveViewHolder holder, int position) {
         ObjectiveWithKeyResults objective = mObjectives.get(position);
+        // bind the objective to view
         holder.bind(objective, view -> {
-            System.out.println(objective.getObjective().getId());
+            if(mItemClickListener != null) {
+                mItemClickListener.onClick(objective);
+            }
         });
     }
 
@@ -64,10 +77,19 @@ public class ObjectivesRecyclerViewAdapter extends RecyclerView.Adapter<Objectiv
             mBinding = binding;
         }
 
+        /**
+         * Bind the data to view.
+         * @param objective
+         * @param clickListener
+         */
         void bind(ObjectiveWithKeyResults objective, View.OnClickListener clickListener) {
             mBinding.setClickListener(clickListener);
             mBinding.setObjectiveWithKeyResults(objective);
             mBinding.executePendingBindings();
         }
+    }
+
+    interface ObjectiveClickListener {
+        void onClick(ObjectiveWithKeyResults objectiveWithKeyResults);
     }
 }

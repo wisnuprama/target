@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

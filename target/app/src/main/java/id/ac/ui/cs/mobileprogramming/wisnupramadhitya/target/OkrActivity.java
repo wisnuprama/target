@@ -1,5 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -23,9 +24,10 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.A
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.PreferenceRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.addobjective.AddObjectiveFragment;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerViewModel;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objectives.ObjectivesFragment;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerFragment;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.AddObjectiveFragment;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.DetailObjectiveFragment;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.NotificationUtils;
@@ -42,8 +44,6 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     protected FloatingActionButton mFloatingActionButton;
 
     private ObjectivesViewModel mObjectivesViewModel;
-
-    private BottomDrawerViewModel mBottomDrawerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,8 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_about, ObjectivesFragment.newInstance())
+                    .replace(R.id.container_pane_left, ObjectivesFragment.newInstance())
+                    .replace(R.id.container_pane_right, DetailObjectiveFragment.newInstance())
                     .commitNow();
         }
     }
@@ -78,12 +79,6 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
     }
 
     @Override
-    protected void onDestroy() {
-        this.mObjectivesViewModel.onActivityDestroyed();
-        super.onDestroy();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.objectives_bottom_appbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
@@ -91,7 +86,24 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        mObjectivesViewModel.onBottomAppBarMenuItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.objectives_bottom_app_bar_about:
+                startAbout();
+                break;
+            case R.id.objectives_bottom_app_bar_settings:
+                startSettings();
+                break;
+            case R.id.objectives_bottom_app_bar_learn_okr:
+                startLearnOkr();
+                break;
+            case android.R.id.home:
+                showUserProjects();
+                break;
+            case R.id.objectives_bottom_app_bar_search:
+                showSearchProjects();
+                break;
+            default:
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -115,8 +127,8 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @Override
     public void showUserProjects() {
-        mBottomDrawerViewModel
-                .showBottomDrawerFragment(getSupportFragmentManager(), null);
+        BottomDrawerFragment
+                .showDrawer(getSupportFragmentManager(), null);
     }
 
     @Override
@@ -126,33 +138,31 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         String userId = PreferenceRepository.getActiveUserId(getApplicationContext());
         final AddObjectiveFragment addObjectiveFragment = AddObjectiveFragment
                 .newInstance(userId, projectId);
-        mBottomDrawerViewModel
-                .showBottomDrawerFragment(getSupportFragmentManager(), addObjectiveFragment);
+        BottomDrawerFragment
+                .showDrawer(getSupportFragmentManager(), addObjectiveFragment);
     }
 
     @Override
     public void showSearchProjects() {
-        mBottomDrawerViewModel
-                .showBottomDrawerFragment(getSupportFragmentManager(), null);
+        BottomDrawerFragment
+                .showDrawer(getSupportFragmentManager(), null);
     }
 
     private void setupViewModel() {
         final Context context = getApplicationContext();
         ObjectivesViewModelFactory factory = Injector.provideObjectivesViewModelFactory(context);
         mObjectivesViewModel = ViewModelProviders.of(this, factory).get(ObjectivesViewModel.class);
-        mObjectivesViewModel.onActivityCreated(this);
         // load latest active project
         mObjectivesViewModel.selectedProjectId.set(PreferenceRepository.getActiveProjectId(this));
-
-        mBottomDrawerViewModel = ViewModelProviders.of(this).get(BottomDrawerViewModel.class);
     }
 
     private void setupButtonListener() {
-        mFloatingActionButton.setOnClickListener(mObjectivesViewModel::onFabAddObjectiveClicked);
+        mFloatingActionButton.setOnClickListener(view -> this.showAddObjective());
     }
 
     private void setupFirstRun() {
         final Context context = getApplicationContext();
+        Activity activity = this;
         // run in main thread because the data must be ready at first run
         AsyncTask.execute(new Runnable() {
             @Transaction
@@ -163,6 +173,7 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
                         AppDatabase.seedUser(context);
                         AppDatabase.seedProject(context);
                         PreferenceRepository.setFirstRunCompleted(context);
+                        runOnUiThread(activity::recreate);
                     }
                 } catch (IOException e) {
                     if (BuildConfig.DEBUG) {

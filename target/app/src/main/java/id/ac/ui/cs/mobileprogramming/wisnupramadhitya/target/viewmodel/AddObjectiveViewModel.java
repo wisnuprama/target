@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import java.time.OffsetDateTime;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ObjectiveRepository;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.SingleLiveEvent;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.SnackbarUtils;
 
 public class AddObjectiveViewModel extends ViewModel {
@@ -19,6 +20,7 @@ public class AddObjectiveViewModel extends ViewModel {
     public final ObservableField<String> title = new ObservableField<>("");
     public final ObservableField<String> rational = new ObservableField<>("");
     public final ObservableField<OffsetDateTime> deadline =  new ObservableField<>();
+    public final SingleLiveEvent<Void> onAddObjectiveEvent = new SingleLiveEvent<>();
 
     public AddObjectiveViewModel(ObjectiveRepository objectiveRepository, String userId, int projectId) {
         mObjectiveRepository = objectiveRepository;
@@ -36,7 +38,7 @@ public class AddObjectiveViewModel extends ViewModel {
 
     public void addObjective(View view) {
         mObjectiveRepository.createObjective(mUserId, mProjectId, title.get(), rational.get(), deadline.get());
-        SnackbarUtils.showSnackbar(view, "Created");
+        onAddObjectiveEvent.call();
     }
 
     public void clearDeadline(View view) {

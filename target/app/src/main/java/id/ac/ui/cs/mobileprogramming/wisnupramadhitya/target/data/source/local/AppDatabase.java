@@ -48,6 +48,11 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final String DB_NAME = "app_db";
     private static AppDatabase instance;
 
+    /**
+     * Singleton to access DB.
+     * @param context
+     * @return
+     */
     public static synchronized AppDatabase getInstance(final Context context) {
         if(instance == null) {
             instance = Room

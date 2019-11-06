@@ -17,17 +17,34 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.OkrActivity;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.broadcastreceiver.GoodMorningAlarmReceiver;
 
+/**
+ * Utility for Good Morning feature. Good Morning is a reminder for user to look up
+ * their goals at 8 in the morning.
+ */
 public class GoodMorningUtils {
 
     private GoodMorningUtils() {
     }
 
+    /**
+     * Get the alarm manager, if null just throw the error.
+     * @param context
+     * @return
+     */
     private static AlarmManager getAlarmManager(@NonNull Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if(alarmManager == null) throw new RuntimeException("Alarm Manager is null");
         return alarmManager;
     }
 
+    /**
+     * Create {@link PendingIntent} for the alarm. The way it works is the pending intent will be called
+     * by {@link AlarmManager} and the receiver {@link GoodMorningAlarmReceiver} will be called.
+     * The pending intent with {@link PendingIntent.FLAG_UPDATE_CURRENT} so if there is another
+     * same intent registered, then the current will bed updated.
+     * @param context
+     * @return
+     */
     private static PendingIntent createGoodMorningAlarmPendingIntent(@NonNull Context context) {
         Intent intent = new Intent(context, GoodMorningAlarmReceiver.class);
         // create pending intent with flag update current
@@ -50,7 +67,7 @@ public class GoodMorningUtils {
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 8); // set 8AM
 
-        // set non priority and repeating the alarm daily
+        // set non priority and repeat the alarm daily
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                                           calendar.getTimeInMillis(),
                                           AlarmManager.INTERVAL_DAY,
@@ -76,8 +93,9 @@ public class GoodMorningUtils {
      * @return
      */
     public static Notification createGoodMorningNotification(@NonNull Context context) {
-        // Create an explicit intent for an Activity in your app
+        // Create an explicit intent for an Activity in the app
         Intent intent = new Intent(context, OkrActivity.class);
+        // new task or clear task because outside the activity
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 

@@ -9,7 +9,14 @@ import android.os.PowerManager;
 import androidx.annotation.NonNull;
 
 public class ApplicationReceiverUtils {
+    private ApplicationReceiverUtils() {
+    }
 
+    /**
+     * Register receiver for battery low and power save mode.
+     * @param context
+     * @param receiver
+     */
     public static void registerOnBatteryLowOrPowerSaveMode(@NonNull Context context, @NonNull BroadcastReceiver receiver) {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_BATTERY_LOW);
@@ -17,18 +24,11 @@ public class ApplicationReceiverUtils {
         context.getApplicationContext().registerReceiver(receiver, intentFilter);
     }
 
-    public static void registerOnPackageChange(@NonNull Context context, @NonNull BroadcastReceiver receiver, String dataScheme) {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addDataScheme(dataScheme);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_CHANGED);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_DATA_CLEARED);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_RESTARTED);
-        context.getApplicationContext().registerReceiver(receiver, intentFilter);
-    }
-
+    /**
+     * Unregister receiver.
+     * @param context
+     * @param receiver
+     */
     public static void unregister(@NonNull Context context, @NonNull BroadcastReceiver receiver) {
         context.getApplicationContext().unregisterReceiver(receiver);
     }

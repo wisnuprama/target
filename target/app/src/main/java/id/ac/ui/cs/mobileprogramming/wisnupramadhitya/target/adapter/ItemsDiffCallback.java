@@ -4,6 +4,10 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import java.util.List;
 
+/**
+ * Helper for check the difference between two list.
+ * @param <T>
+ */
 public class ItemsDiffCallback<T extends DiffItem<T>> extends DiffUtil.Callback {
 
     private List<T> oldList;

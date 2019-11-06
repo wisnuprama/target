@@ -8,15 +8,19 @@
     android:layout_height="match_parent"
     tools:context=".OkrActivity">
 
-    <FrameLayout
-        android:id="@+id/container_pane_left"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <FrameLayout
-        android:id="@+id/container_pane_right"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/container_pane_left"
+            android:layout_width="300dp"
+            android:layout_height="match_parent" />
+        <FrameLayout
+            android:id="@+id/container_pane_right"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"

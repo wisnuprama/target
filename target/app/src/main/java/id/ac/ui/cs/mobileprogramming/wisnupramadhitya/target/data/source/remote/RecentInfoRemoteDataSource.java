@@ -17,7 +17,7 @@ import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.RecentInfo;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.UpdateInfoDataSource;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.WebServiceRequestQueue;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.volley.WebServiceRequestQueue;
 
 public class RecentInfoRemoteDataSource implements UpdateInfoDataSource {
     private static final String ENDPOINT = "https://public-api.wordpress.com/rest/v1.1/sites/targetapp.tech.blog/posts/";

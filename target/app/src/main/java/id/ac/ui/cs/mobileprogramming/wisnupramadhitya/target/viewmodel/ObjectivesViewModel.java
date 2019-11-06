@@ -21,8 +21,6 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNaviga
 
 public class ObjectivesViewModel extends ViewModel {
 
-    private OkrNavigator mOkrNavigator;
-
     private ProjectRepository mProjectRepository;
 
     private ObjectiveRepository mObjectiveRepository;
@@ -38,11 +36,6 @@ public class ObjectivesViewModel extends ViewModel {
         mObjectiveRepository = objectiveRepository;
     }
 
-    @Deprecated
-    public void onActivityCreated(@NonNull OkrNavigator okrNavigator) {
-        mOkrNavigator = okrNavigator;
-    }
-
     public void onActivityCreated() {
         selectedProjectId.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
@@ -55,36 +48,7 @@ public class ObjectivesViewModel extends ViewModel {
         });
     }
 
-    public void onActivityDestroyed() {
-        this.mOkrNavigator = null;
-    }
-
     public MediatorLiveData<List<ObjectiveWithKeyResults>> getObjectiveLiveData() {
         return mObjectiveLiveData;
-    }
-
-    public void onBottomAppBarMenuItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.objectives_bottom_app_bar_about:
-                mOkrNavigator.startAbout();
-                break;
-            case R.id.objectives_bottom_app_bar_settings:
-                mOkrNavigator.startSettings();
-                break;
-            case R.id.objectives_bottom_app_bar_learn_okr:
-                mOkrNavigator.startLearnOkr();
-                break;
-            case android.R.id.home:
-                mOkrNavigator.showUserProjects();
-                break;
-            case R.id.objectives_bottom_app_bar_search:
-                mOkrNavigator.showSearchProjects();
-                break;
-            default:
-        }
-    }
-
-    public void onFabAddObjectiveClicked(View view) {
-        mOkrNavigator.showAddObjective();
     }
 }

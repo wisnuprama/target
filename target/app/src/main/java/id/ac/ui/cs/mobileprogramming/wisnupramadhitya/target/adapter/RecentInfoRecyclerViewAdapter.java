@@ -1,5 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.adapter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +35,8 @@ public class RecentInfoRecyclerViewAdapter extends BaseRecyclerView<RecentInfoRe
     public void onBindViewHolder(@NonNull RecentInfoViewHolder holder, int position) {
         RecentInfo recentInfo = getItems().get(position);
         holder.bind(recentInfo, view -> {
-            System.out.println(recentInfo.getId());
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(recentInfo.getURL()));
+            view.getContext().startActivity(browserIntent);
         });
     }
 
@@ -46,6 +49,11 @@ public class RecentInfoRecyclerViewAdapter extends BaseRecyclerView<RecentInfoRe
             mBinding = binding;
         }
 
+        /**
+         * Bind the data to view.
+         * @param recentInfo
+         * @param clickListener
+         */
         void bind(RecentInfo recentInfo, View.OnClickListener clickListener) {
             mBinding.setClickListener(clickListener);
             mBinding.setRecentInfo(recentInfo);

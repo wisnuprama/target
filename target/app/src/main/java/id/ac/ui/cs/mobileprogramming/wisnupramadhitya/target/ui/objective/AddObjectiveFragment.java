@@ -1,9 +1,10 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.addobjective;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.button.MaterialButton;
@@ -30,7 +30,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.databinding.FragmentAddObjectiveBinding;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.SnackbarUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModelFactory;
 
@@ -86,6 +88,20 @@ public class AddObjectiveFragment extends Fragment {
         mTitleTextInputEditText.requestFocus();
         mDeadlineBtn.setOnClickListener(this::showDatePickerDialog);
         mDeadlineChip.setOnCloseIconClickListener(mViewModel::clearDeadline);
+        setupAddObjectiveEventListener();
+    }
+
+    private void setupAddObjectiveEventListener() {
+        Activity activity = getActivity();
+        mViewModel.onAddObjectiveEvent.observe(this, v -> {
+            BottomDrawerFragment.dismissDrawer();
+            if(activity != null) {
+                new Handler().postDelayed(
+                        () -> activity.runOnUiThread(
+                                () -> SnackbarUtils.showSnackbar(activity, "HAHA")),
+                        1000);
+            }
+        });
     }
 
     private void showDatePickerDialog(View v) {

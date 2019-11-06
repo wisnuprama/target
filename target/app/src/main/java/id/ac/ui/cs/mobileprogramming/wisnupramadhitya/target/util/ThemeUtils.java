@@ -7,7 +7,13 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.PreferenceRepository;
 
+/**
+ * Theme utility class
+ */
 public class ThemeUtils {
+
+    private ThemeUtils() {
+    }
 
     public enum ThemeMode {
             LIGHT,
@@ -15,6 +21,10 @@ public class ThemeUtils {
             BATTERY_SAVER,
     }
 
+    /**
+     * Change theme based on themeMode given.
+     * @param themeMode
+     */
     public static void applyTheme(ThemeMode themeMode) {
         switch (themeMode) {
             case LIGHT:
@@ -31,6 +41,10 @@ public class ThemeUtils {
         }
     }
 
+    /**
+     * Change theme based on String themeNode given.
+     * @param themeMode
+     */
     public static void applyTheme(String themeMode) {
         switch (themeMode) {
             case "light":
@@ -47,6 +61,12 @@ public class ThemeUtils {
         }
     }
 
+    /**
+     * When get called, it will change the theme based on battery saver activation.
+     * If the powersave mode, then change to dark mode.
+     * Otherwise, apply current theme based on {@link PreferenceRepository}
+     * @param context
+     */
     public static void changeThemeOnBatterySaver(Context context) {
         final PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         if (pm != null && pm.isPowerSaveMode()) {

@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.objectives.ObjectivesFragment">
+        tools:context=".ui.objective.ObjectivesFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"

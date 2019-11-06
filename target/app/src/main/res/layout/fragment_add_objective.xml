@@ -11,7 +11,7 @@
     </data>
 
     <LinearLayout
-        tools:context=".ui.addobjective.AddObjectiveFragment"
+        tools:context=".ui.objective.AddObjectiveFragment"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

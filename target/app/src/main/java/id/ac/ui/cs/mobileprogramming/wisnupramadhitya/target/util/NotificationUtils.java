@@ -42,6 +42,12 @@ public class NotificationUtils {
         }
     }
 
+    /**
+     * Dispatch the notification
+     * @param context
+     * @param id
+     * @param notification
+     */
     public static void dispatchNotification(@NonNull Context context, @NonNull Integer id, @NonNull Notification notification) {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(id, notification);

@@ -10,11 +10,18 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.reposit
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ProjectRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.RecentInfoRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.UserRepository;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.volley.WebServiceRequestQueue;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModelFactory;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModelFactory;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.RecentInfoViewModelFactory;
 
+/**
+ * Dependency injection
+ */
 public class Injector {
+
+    private Injector() {
+    }
 
     private static UserRepository getUserRepository(@NonNull Context context) {
         AppDatabase appDatabase = AppDatabase.getInstance(context);

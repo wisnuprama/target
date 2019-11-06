@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -23,12 +24,36 @@ public class BottomDrawerFragment extends BottomSheetDialogFragment {
 
     private Fragment mChildFragment;
 
-    public BottomDrawerFragment() {
-        // Required empty public constructor
-    }
+    private static BottomDrawerFragment instance;
 
     public static BottomDrawerFragment newInstance() {
         return new BottomDrawerFragment();
+    }
+
+    public static synchronized BottomDrawerFragment getInstance() {
+        if(instance == null) {
+            instance = newInstance();
+        }
+
+        return instance;
+    }
+
+    /**
+     * Only one content in bottom fragment at a time.
+     * @param fragmentManager
+     * @param childFragment
+     * @return
+     */
+    public static void showDrawer(FragmentManager fragmentManager, Fragment childFragment) {
+        BottomDrawerFragment bottomDrawerFragment = getInstance();
+        if(childFragment != null) {
+            bottomDrawerFragment.setChildFragment(childFragment);
+        }
+        bottomDrawerFragment.show(fragmentManager, bottomDrawerFragment.getTag());
+    }
+
+    public static void dismissDrawer() {
+        getInstance().dismiss();
     }
 
     @Override
@@ -53,6 +78,9 @@ public class BottomDrawerFragment extends BottomSheetDialogFragment {
         mChildFragment = childFragment;
     }
 
+    /**
+     * Load child fragment
+     */
     private void loadChildFragment() {
         if(mChildFragment != null) {
             getChildFragmentManager()

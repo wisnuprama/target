@@ -1,4 +1,4 @@
-package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util;
+package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.volley;
 
 import android.content.Context;
 
@@ -6,6 +6,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+/**
+ * Singleton for request queue so the queue can be used in all app component.
+ */
 public class WebServiceRequestQueue {
 
     private static WebServiceRequestQueue instance;
@@ -25,6 +28,10 @@ public class WebServiceRequestQueue {
         return instance;
     }
 
+    /**
+     * Get the request queue, if null then create a new instance.
+     * @return
+     */
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
@@ -34,6 +41,11 @@ public class WebServiceRequestQueue {
         return mRequestQueue;
     }
 
+    /**
+     * Add request to queue.
+     * @param req
+     * @param <T>
+     */
     public <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);
     }

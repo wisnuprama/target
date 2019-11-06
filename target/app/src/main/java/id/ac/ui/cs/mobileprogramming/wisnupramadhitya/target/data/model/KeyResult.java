@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity(
     foreignKeys = {
             @ForeignKey(entity = Objective.class,
@@ -15,25 +17,32 @@ import androidx.room.PrimaryKey;
 )
 public class KeyResult {
 
+    @SerializedName("id")
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private Integer mId;
 
+    @SerializedName("objectiveId")
     @ColumnInfo(name = "objective_id", index = true)
     private Integer mObjectiveId;
 
+    @SerializedName("statement")
     @ColumnInfo(name = "statement")
     private String mStatement;
 
+    @SerializedName("measurement")
     @ColumnInfo(name = "measurement")
     private String mMeasurement;
 
+    @SerializedName("currentValue")
     @ColumnInfo(name = "current_value")
     private Double mCurrentValue;
 
+    @SerializedName("startValue")
     @ColumnInfo(name = "start_value")
     private Double mStartValue;
 
+    @SerializedName("targetValue")
     @ColumnInfo(name = "target_value")
     private Double mTargetValue;
 

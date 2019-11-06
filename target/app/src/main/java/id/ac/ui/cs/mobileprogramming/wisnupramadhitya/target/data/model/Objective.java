@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
@@ -23,25 +25,32 @@ import java.time.temporal.ChronoUnit;
 )
 public class Objective {
 
+    @SerializedName("id")
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private Integer mId;
 
+    @SerializedName("projectId")
     @ColumnInfo(name = "project_id", index = true)
     private Integer mProjectId;
 
+    @SerializedName("ownerId")
     @ColumnInfo(name = "owner_id", index = true)
     private String mOwnerId;
 
+    @SerializedName("title")
     @ColumnInfo(name = "title")
     private String mTitle;
 
+    @SerializedName("rational")
     @ColumnInfo(name = "rational")
     private String mRational;
 
+    @SerializedName("dateCreated")
     @ColumnInfo(name = "date_created")
     private OffsetDateTime mDateCreated = OffsetDateTime.now();
 
+    @SerializedName("deadline")
     @ColumnInfo(name = "deadline")
     private OffsetDateTime mDeadline;
 
