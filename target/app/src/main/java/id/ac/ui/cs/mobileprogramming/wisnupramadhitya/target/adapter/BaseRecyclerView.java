@@ -14,6 +14,8 @@ public abstract class BaseRecyclerView<VH extends RecyclerView.ViewHolder, T ext
 
     private List<T> mItems;
 
+    public BaseRecyclerView() {}
+
     public BaseRecyclerView(List<T> items) {
         mItems = items;
     }

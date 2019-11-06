@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -19,17 +18,16 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.databinding.Objecti
  * Objective recycler views.
  * Need refactor to BaseRecyclerAdapter because both implementation are same.
  */
-public class ObjectivesRecyclerViewAdapter extends RecyclerView.Adapter<ObjectivesRecyclerViewAdapter.ObjectiveViewHolder> {
+public class ObjectivesRecyclerViewAdapter
+        extends BaseRecyclerView<ObjectivesRecyclerViewAdapter.ObjectiveViewHolder, ObjectiveWithKeyResults> {
 
-    private List<ObjectiveWithKeyResults> mObjectives;
     private ObjectiveClickListener mItemClickListener;
 
-    public ObjectivesRecyclerViewAdapter(List<ObjectiveWithKeyResults> objectives) {
-        mObjectives = objectives;
+    public ObjectivesRecyclerViewAdapter() {
     }
 
-    public void setItemClickListener(ObjectiveClickListener itemClickListener) {
-        mItemClickListener = itemClickListener;
+    public ObjectivesRecyclerViewAdapter(List<ObjectiveWithKeyResults> items) {
+        super(items);
     }
 
     @NonNull
@@ -42,9 +40,10 @@ public class ObjectivesRecyclerViewAdapter extends RecyclerView.Adapter<Objectiv
         return new ObjectiveViewHolder(binding);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ObjectiveViewHolder holder, int position) {
-        ObjectiveWithKeyResults objective = mObjectives.get(position);
+        ObjectiveWithKeyResults objective = getItems().get(position);
         // bind the objective to view
         holder.bind(objective, view -> {
             if(mItemClickListener != null) {
@@ -53,19 +52,12 @@ public class ObjectivesRecyclerViewAdapter extends RecyclerView.Adapter<Objectiv
         });
     }
 
-
-    @Override
-    public int getItemCount() {
-        return mObjectives.size();
+    public void setItemClickListener(ObjectiveClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 
-    public void updateItems(List<ObjectiveWithKeyResults> objectives) {
-        final ItemsDiffCallback<ObjectiveWithKeyResults> diffCallback = new ItemsDiffCallback<>(mObjectives, objectives);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
-        mObjectives.clear();
-        mObjectives.addAll(objectives);
-        diffResult.dispatchUpdatesTo(this);
+    public void removeItemClickListener() {
+        mItemClickListener = null;
     }
 
     class ObjectiveViewHolder extends RecyclerView.ViewHolder {
@@ -89,7 +81,7 @@ public class ObjectivesRecyclerViewAdapter extends RecyclerView.Adapter<Objectiv
         }
     }
 
-    interface ObjectiveClickListener {
+    public interface ObjectiveClickListener {
         void onClick(ObjectiveWithKeyResults objectiveWithKeyResults);
     }
 }
