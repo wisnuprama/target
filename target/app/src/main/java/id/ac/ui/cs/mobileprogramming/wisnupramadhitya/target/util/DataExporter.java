@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ShareCompat;
 import androidx.core.content.FileProvider;
 
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.BuildConfig;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.ObjectiveWithKeyResults;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Project;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.User;
@@ -38,19 +40,21 @@ public class DataExporter {
 
     private Serializer mSerializer ;
 
-    private Intent mShareFileIntent;
-
     private File mFile;
+
+    private String mFileName;
 
     public DataExporter(Context context) {
         mContext = context;
         mAppDatabase = AppDatabase.getInstance(context);
+        mFileName = String.format("%s.json", mContext.getString(R.string.backup_title));
     }
 
     /**
      * Load all the data needed from current user to be serialized.
      */
-    private void load() {
+    public DataExporter load() {
+        // load all from the database for current user
         String userId = PreferenceRepository.getActiveUserId(mContext);
         User user = mAppDatabase.userDao().getUserById(userId);
         List<Project> projects = mAppDatabase.projectDao()
@@ -58,7 +62,9 @@ public class DataExporter {
         List<ObjectiveWithKeyResults> objectives = mAppDatabase
                 .objectiveDao()
                 .getObjectiveWithKeyResultsByUserId(user.getId());
+        // serialize
         mSerializer = new Serializer(user, projects, objectives);
+        return this;
     }
 
     /**
@@ -66,34 +72,14 @@ public class DataExporter {
      * @return
      */
     public DataExporter write(){
-        load();
         // create file in files directory
-        File filesPath = new File(mContext.getFilesDir(), "files");
-        mFile = new File(filesPath, "exported.json");
-
-        // open the file in mode private
+        mFile = new File(mContext.getFilesDir(), mFileName);
+        // openFileOutput for internal storage
         try (FileOutputStream outputStream = mContext.openFileOutput(mFile.getName(), Context.MODE_PRIVATE)){
             outputStream.write(mSerializer.serialize().getBytes()); // write
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return this;
-    }
-
-    /**
-     * Build the share intent {@link Intent.ACTION_SEND} and temporary read permission to the file.
-     * @return
-     */
-    public DataExporter buildIntent() {
-        mShareFileIntent = new Intent(Intent.ACTION_SEND);
-        // set flag to give temporary permission to external app to use FileProvider
-        mShareFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        // generate URI, defined authority as the application ID in the Manifest,
-        // the last param is file we want to open
-        Uri uri = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID, mFile);
-        mShareFileIntent.setDataAndType(uri, "application/json");
-        // put file as attachment
-        mShareFileIntent.putExtra(Intent.EXTRA_STREAM, uri);
         return this;
     }
 
@@ -104,7 +90,18 @@ public class DataExporter {
      */
     public DataExporter share(@NonNull Activity activity) {
         // open share to other apps
-        activity.startActivity(Intent.createChooser(mShareFileIntent, "Share via..."));
+        // generate URI, defined authority as the application ID in the Manifest,
+        // the last param is file we want to open
+        Uri fileUri = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID, mFile);
+        Intent shareFileIntent = ShareCompat.IntentBuilder.from(activity)
+                .setStream(fileUri) // set file as attachment
+                .setType("text/*") // set mime type
+                .setSubject(mFileName) // for google drive, it used as file name. gmail use this as subject
+                .getIntent()
+                .setAction(Intent.ACTION_SEND) // send to other app, share
+                // set flag to give temporary permission to external app to use FileProvider
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        activity.startActivity(Intent.createChooser(shareFileIntent, "Share via..."));
         return this;
     }
 

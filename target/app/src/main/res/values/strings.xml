@@ -44,7 +44,7 @@
     <!-- General Preferences -->
     <string name="good_morning_title">Good morning</string>
     <string name="good_morning_summary">Remind you every 8 in the morning</string>
-    <string name="backup_title">Backup/Export</string>
+    <string name="backup_title">Backup</string>
     <string name="backup_summary">Backup your data in shareable file</string>
 
     <!-- Theme Preferences -->

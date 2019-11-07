@@ -128,6 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         void setupExportButton() {
             Preference exportBtn = findPreference(getString(R.string.backup));
+            if(exportBtn == null) return;
             exportBtn.setOnPreferenceClickListener((preference -> {
                 mSettingsActivity.showProgressbar();
                 Handler handler = new Handler();
@@ -135,8 +136,8 @@ public class SettingsActivity extends AppCompatActivity {
                 // for better use experience (not blinked)
                 handler.postDelayed(() -> AsyncTask.execute(() -> {
                     new DataExporter(getContext())
+                            .load()
                             .write()
-                            .buildIntent()
                             .share(getActivity());
                     getActivity().runOnUiThread(mSettingsActivity::hideProgressBar);
                 }), 1000);
