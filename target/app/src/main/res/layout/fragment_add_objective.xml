@@ -6,8 +6,8 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="addObjectiveViewModel"
-            type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModel" />
+            name="objectiveDetailViewModel"
+            type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModel" />
     </data>
 
     <LinearLayout
@@ -34,7 +34,7 @@
                     android:inputType="text"
                     android:hint="@string/objective"
                     android:background="@null"
-                    android:text="@={addObjectiveViewModel.title}"
+                    android:text="@={objectiveDetailViewModel.title}"
                     android:singleLine="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -51,7 +51,7 @@
                     android:inputType="textMultiLine"
                     android:hint="@string/add_objective_rational_hint"
                     android:background="@null"
-                    android:text="@={addObjectiveViewModel.rational}"
+                    android:text="@={objectiveDetailViewModel.rational}"
                     android:lines="3"
                     android:gravity="start"
                     android:maxLines="3"
@@ -83,8 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/objective_deadline"
                 app:closeIconEnabled="true"
-                android:visibility="@{addObjectiveViewModel.deadline != null ? View.VISIBLE : View.GONE}"
-                android:text="@{addObjectiveViewModel.deadline.toString()}" />
+                android:visibility="@{objectiveDetailViewModel.deadline != null ? View.VISIBLE : View.GONE}"
+                android:text="@{objectiveDetailViewModel.deadline.toString()}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/objective_save"
@@ -93,9 +93,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="@string/btn_save"
-                android:onClick="@{(view) -> addObjectiveViewModel.addObjective(view)}"
+                android:onClick="@{(view) -> objectiveDetailViewModel.saveObjective(view)}"
                 app:rippleColor="@color/primary_color_accent"
-                android:enabled="@{!addObjectiveViewModel.title.empty}"
+                android:enabled="@{!objectiveDetailViewModel.title.empty}"
                 app:backgroundTint="?attr/colorSurface"/>
         </RelativeLayout>
     </LinearLayout>

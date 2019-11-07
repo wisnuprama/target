@@ -25,11 +25,21 @@ public class ObjectiveRepository implements ObjectiveDataSource {
 
     @Override
     public void createObjective(@NonNull String userId, @NonNull Integer projectId,
-                                @NonNull String title, String rational, OffsetDateTime deadline) {
+                                String title, String rational, OffsetDateTime deadline) {
         AsyncTask.execute(() -> {
             Objective objective = new Objective(projectId, userId, title, rational, deadline);
             mObjectiveDao.insertAll(objective);
         });
+    }
+
+    @Override
+    public void updateObjective(@NonNull Objective objective) {
+        AsyncTask.execute(() -> mObjectiveDao.updateObjective(objective));
+    }
+
+    @Override
+    public LiveData<ObjectiveWithKeyResults> getObjective(@NonNull Integer objectiveId) {
+        return mObjectiveDao.findObjectiveById(objectiveId);
     }
 
     @Override

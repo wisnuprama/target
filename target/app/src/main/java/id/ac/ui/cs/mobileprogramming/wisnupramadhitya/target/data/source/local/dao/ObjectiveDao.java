@@ -3,20 +3,27 @@ package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Objective;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.ObjectiveWithKeyResults;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Project;
 
 @Dao
 public interface ObjectiveDao {
 
     @Insert
     void insertAll(Objective... objectives);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertObjective(Objective objective);
+
+    @Update
+    int updateObjective(Objective objective);
 
     @Query("SELECT * FROM objective")
     LiveData<List<Objective>> findAllObjectives();
@@ -28,7 +35,7 @@ public interface ObjectiveDao {
     LiveData<List<Objective>> findObjectivesByProjectId(Integer projectId);
 
     @Query("SELECT * FROM objective WHERE id = :objectiveId")
-    LiveData<Project> findObjectiveById(Integer objectiveId);
+    LiveData<ObjectiveWithKeyResults> findObjectiveById(Integer objectiveId);
 
     @Transaction
     @Query("SELECT * FROM objective WHERE project_id = :projectId ORDER BY date_created DESC")

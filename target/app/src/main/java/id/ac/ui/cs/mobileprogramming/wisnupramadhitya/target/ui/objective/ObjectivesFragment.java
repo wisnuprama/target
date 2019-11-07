@@ -47,6 +47,7 @@ public class ObjectivesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         mFragmentObjectivesBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_objectives,
                                                           container, false);
         mFragmentObjectivesBinding.setLifecycleOwner(this);
@@ -81,13 +82,16 @@ public class ObjectivesFragment extends Fragment {
                 DetailObjectiveFragment detailObjectiveFragment = (DetailObjectiveFragment) fragmentManager
                         .findFragmentById(R.id.container_objective_detail);
 
+                int objectiveId = objective.getObjective().getId();
                 if(detailObjectiveFragment != null) {
                     // two-pane layout mode
+                    detailObjectiveFragment.updateObjectiveView(objectiveId);
                 } else {
                     // one-pane layout mode
                     fragmentManager
                             .beginTransaction()
-                            .replace(R.id.container_objectives, DetailObjectiveFragment.newInstance())
+                            .replace(R.id.container_objectives,
+                                     DetailObjectiveFragment.newInstance(objectiveId))
                             .addToBackStack(null)
                             .commit();
 
@@ -102,6 +106,9 @@ public class ObjectivesFragment extends Fragment {
     private void subscribeUI() {
         mViewModel.getObjectiveLiveData()
                 .observe(getViewLifecycleOwner(),
-                          objectives -> mObjectivesAdapter.updateItems(objectives));
+                          objectives -> {
+                              mObjectivesAdapter.updateItems(objectives);
+                              mObjectivesRecyclerView.smoothScrollToPosition(0);
+                          });
     }
 }

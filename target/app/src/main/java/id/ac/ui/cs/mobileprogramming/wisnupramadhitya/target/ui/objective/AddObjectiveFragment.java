@@ -1,14 +1,11 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,19 +18,16 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.util.Calendar;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.databinding.FragmentAddObjectiveBinding;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.dialog.DatePickerFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.SnackbarUtils;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModel;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModelFactory;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModel;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModelFactory;
 
 public class AddObjectiveFragment extends Fragment {
 
@@ -49,7 +43,7 @@ public class AddObjectiveFragment extends Fragment {
     @BindView(R.id.objective_deadline_chip)
     protected Chip mDeadlineChip;
 
-    private AddObjectiveViewModel mViewModel;
+    private ObjectiveDetailViewModel mViewModel;
 
     private FragmentAddObjectiveBinding mBinding;
 
@@ -78,13 +72,13 @@ public class AddObjectiveFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         String userId = getArguments().getString(ARG_USER_ID);
         int projectId = getArguments().getInt(ARG_PROJECT_ID);
-        AddObjectiveViewModelFactory viewModelFactory = Injector
-                .provideAddObjectiveViewModelFactory(getActivity(), userId, projectId);
-        mViewModel = ViewModelProviders.of(this, viewModelFactory).get(AddObjectiveViewModel.class);
-        mBinding.setAddObjectiveViewModel(mViewModel);
+        ObjectiveDetailViewModelFactory viewModelFactory = Injector.provideAddObjectiveViewModelFactory(getActivity());
+        mViewModel = ViewModelProviders.of(this, viewModelFactory).get(ObjectiveDetailViewModel.class);
+        mBinding.setObjectiveDetailViewModel(mViewModel);
+        mViewModel.startNewMode(userId, projectId);
 
-        // setup listener
-        mTitleTextInputEditText.requestFocus();
+        if(mViewModel.isNewMode())
+            mTitleTextInputEditText.requestFocus();
         mDeadlineBtn.setOnClickListener(this::showDatePickerDialog);
         mDeadlineChip.setOnCloseIconClickListener(mViewModel::clearDeadline);
         setupAddObjectiveEventListener();
@@ -92,13 +86,13 @@ public class AddObjectiveFragment extends Fragment {
 
     private void setupAddObjectiveEventListener() {
         Activity activity = getActivity();
-        mViewModel.onAddObjectiveEvent.observe(this, v -> {
+        mViewModel.onObjectiveSavedEvent.observe(this, v -> {
             BottomDrawerFragment.dismissDrawer();
             if(activity != null) {
                 new Handler().postDelayed(
                         () -> activity.runOnUiThread(
                                 () -> SnackbarUtils.showSnackbar(activity, "HAHA")),
-                        1000);
+                        1500);
             }
         });
     }
@@ -107,45 +101,4 @@ public class AddObjectiveFragment extends Fragment {
         DialogFragment newFragment = new DatePickerFragment(mViewModel);
         newFragment.show(getChildFragmentManager(), DatePickerFragment.TAG_NAME);
     }
-
-    public static class DatePickerFragment extends DialogFragment {
-
-        AddObjectiveViewModel mAddObjectiveViewModel;
-
-        public static final String TAG_NAME = "deadlineDatePicker";
-
-        DatePickerFragment(AddObjectiveViewModel addObjectiveViewModel) {
-            mAddObjectiveViewModel = addObjectiveViewModel;
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            OffsetDateTime selectedDate = mAddObjectiveViewModel.deadline.get();
-            final Calendar c = Calendar.getInstance();
-            if(selectedDate != null) {
-                c.set(Calendar.YEAR, selectedDate.getYear());
-                c.set(Calendar.MONTH, selectedDate.getMonthValue());
-                c.set(Calendar.DAY_OF_MONTH, selectedDate.getDayOfMonth());
-            }
-
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this::setDate, year, month, day);
-            datePickerDialog.setOnDateSetListener(this::setDate);
-            return datePickerDialog;
-        }
-
-        void setDate(DatePicker view, int year, int month, int dayOfMonth) {
-            mAddObjectiveViewModel.deadline
-                    .set(OffsetDateTime.of(year, month, dayOfMonth,
-                                           0, 0, 0, 0, ZoneOffset.UTC));
-            this.dismiss();
-        }
-    }
-
 }

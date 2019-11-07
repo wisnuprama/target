@@ -4,49 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
+        <variable
+            name="objectiveDetailViewModel"
+            type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModel" />
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        tools:context=".ui.objective.AddObjectiveFragment"
         android:orientation="vertical"
-        android:paddingTop="@dimen/p4"
-        tools:context=".ui.objective.DetailObjectiveFragment">
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/AppTheme.TextInputTransparent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/p6"
-            app:hintEnabled="false">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_objective_title"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:inputType="text"
-                android:hint="@string/objective"
-                android:background="@null"
-                android:singleLine="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="@{objectiveDetailViewModel.objectiveLiveData != null ? View.VISIBLE : View.GONE}">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/AppTheme.TextInputTransparent"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/p6"
-            app:hintEnabled="false">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_objective_reason"
-                android:inputType="textMultiLine"
-                android:hint="@string/add_objective_rational_hint"
-                android:background="@null"
-                android:lines="3"
-                android:gravity="start"
-                android:maxLines="3"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/p4">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AppTheme.TextInputTransparent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/p6"
+                app:hintEnabled="false">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_objective_title"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:inputType="text"
+                    android:hint="@string/objective"
+                    android:background="@null"
+                    android:text="@={objectiveDetailViewModel.title}"
+                    android:singleLine="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/AppTheme.TextInputTransparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/p6"
+                app:hintEnabled="false">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_objective_reason"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/add_objective_rational_hint"
+                    android:background="@null"
+                    android:text="@={objectiveDetailViewModel.rational}"
+                    android:lines="3"
+                    android:gravity="start"
+                    android:maxLines="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/objective_deadline"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                app:backgroundTint="?attr/colorSurface"
+                app:rippleColor="@color/primary_color_accent"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:icon="@drawable/ic_event_available_24dp"
+                app:iconTint="?attr/colorOnSurface"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/objective_deadline_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/objective_deadline"
+                android:visibility="@{objectiveDetailViewModel.deadline != null ? View.VISIBLE : View.GONE}"
+                android:text="@{objectiveDetailViewModel.deadline.toString()}"
+                app:closeIconEnabled="true"/>
+        </RelativeLayout>
     </LinearLayout>
 </layout>

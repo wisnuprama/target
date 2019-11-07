@@ -72,8 +72,8 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
 
     @Override
     protected void onResume() {
-        setupThemeModeReceiverOnFresh();
         super.onResume();
+        setupThemeModeReceiverOnFresh();
     }
 
     @Override

@@ -11,7 +11,7 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.reposit
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.RecentInfoRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.UserRepository;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.volley.WebServiceRequestQueue;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.AddObjectiveViewModelFactory;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModelFactory;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModelFactory;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.RecentInfoViewModelFactory;
 
@@ -50,10 +50,9 @@ public class Injector {
         return new ObjectivesViewModelFactory(projectRepository, objectiveRepository);
     }
 
-    public static AddObjectiveViewModelFactory provideAddObjectiveViewModelFactory(@NonNull Context context,
-                                                                                   String userId, Integer projectId) {
+    public static ObjectiveDetailViewModelFactory provideAddObjectiveViewModelFactory(@NonNull Context context) {
         ObjectiveRepository objectiveRepository = getObjectiveRepository(context);
-        return new AddObjectiveViewModelFactory(objectiveRepository, userId, projectId);
+        return new ObjectiveDetailViewModelFactory(objectiveRepository);
     }
 
     public static RecentInfoViewModelFactory provideRecentInfoViewModelFactory(@NonNull Context context) {

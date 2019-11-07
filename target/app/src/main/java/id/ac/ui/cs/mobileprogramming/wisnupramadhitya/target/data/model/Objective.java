@@ -3,6 +3,7 @@ package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -59,6 +60,12 @@ public class Objective {
         mTitle = title;
         mRational = rational;
         mDeadline = deadline;
+    }
+
+    @Ignore
+    public Objective(Integer id, Integer projectId, String ownerId, String title, String rational, OffsetDateTime deadline) {
+        this(projectId, ownerId, title, rational, deadline);
+        setId(id);
     }
 
     public Integer getId() {
