@@ -13,9 +13,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <fragment
+        <FrameLayout
             android:id="@+id/container_objectives"
-            android:name="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.ObjectivesFragment"
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
