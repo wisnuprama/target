@@ -5,7 +5,10 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.gson.OffsetDateTimeConverter;
 
 @Entity(
     foreignKeys = {
@@ -43,6 +46,7 @@ public class KeyResult {
     private Double mStartValue;
 
     @SerializedName("targetValue")
+    @JsonAdapter(OffsetDateTimeConverter.class)
     @ColumnInfo(name = "target_value")
     private Double mTargetValue;
 

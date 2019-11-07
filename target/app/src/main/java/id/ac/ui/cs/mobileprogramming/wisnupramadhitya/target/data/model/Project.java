@@ -5,9 +5,12 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.OffsetDateTime;
+
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.gson.OffsetDateTimeConverter;
 
 
 @Entity(
@@ -38,6 +41,7 @@ public class Project {
     private Boolean mIsFavorite;
 
     @SerializedName("dateCreated")
+    @JsonAdapter(OffsetDateTimeConverter.class)
     @ColumnInfo(name = "date_created")
     private OffsetDateTime mDateCreated = OffsetDateTime.now();
 
