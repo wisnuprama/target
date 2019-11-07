@@ -22,7 +22,7 @@ So here we can see the high fidelity UI. It uses Material.io and Google Tasks as
   - [x] AlarmManager
   - [x] AsyncTask: load db
   - [x] JobScheduler and JobService
-- [ ] Multi Layout
+- [x] Multi Layout
 - [x] Multi Language (minimum 2 languages)
 - [x] Asset
 - [x] MVVM
