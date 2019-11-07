@@ -10,64 +10,85 @@
             type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModel" />
     </data>
 
-    <LinearLayout
-        tools:context=".ui.objective.AddObjectiveFragment"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/p16"
-        android:visibility="@{objectiveDetailViewModel.objectiveLiveData != null ? View.VISIBLE : View.GONE}">
-
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/p4">
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:visibility="@{objectiveDetailViewModel.objectiveLiveData != null ? View.GONE : View.VISIBLE}"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/p6"
-                app:hintEnabled="false">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text_objective_title"
-                    android:textStyle="bold"
-                    android:paddingTop="@dimen/p4"
-                    android:textSize="20sp"
-                    android:inputType="text"
-                    android:hint="@string/objective"
-                    android:background="@null"
-                    android:text="@={objectiveDetailViewModel.title}"
-                    android:singleLine="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/logo"
+                android:alpha="0.25"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+            <LinearLayout
+                tools:context=".ui.objective.AddObjectiveFragment"
+                android:visibility="@{objectiveDetailViewModel.objectiveLiveData != null ? View.VISIBLE : View.GONE}"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/p6"
-                app:hintEnabled="false">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_text_objective_reason"
-                    android:inputType="textMultiLine"
-                    android:hint="@string/add_objective_rational_hint"
-                    android:paddingTop="@dimen/p6"
-                    android:background="@null"
-                    android:text="@={objectiveDetailViewModel.rational}"
-                    android:minLines="3"
-                    android:gravity="start"
+                android:layout_height="match_parent"
+                android:padding="@dimen/p16"
+                android:paddingTop="@dimen/p4">
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/p6"
+                    app:hintEnabled="false">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_objective_title"
+                        android:textStyle="bold"
+                        android:paddingTop="@dimen/p4"
+                        android:textSize="20sp"
+                        android:inputType="text"
+                        android:hint="@string/objective"
+                        android:background="@null"
+                        android:text="@={objectiveDetailViewModel.title}"
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/objective_deadline_chip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{objectiveDetailViewModel.deadline == null ? @string/btn_set_deadline : objectiveDetailViewModel.deadline.toString()}"
-                app:closeIconEnabled="true"/>
-        </LinearLayout>
-    </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/p6"
+                    app:hintEnabled="false">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_objective_reason"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/add_objective_rational_hint"
+                        android:paddingTop="@dimen/p6"
+                        android:background="@null"
+                        android:text="@={objectiveDetailViewModel.rational}"
+                        android:minLines="3"
+                        android:gravity="start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/objective_deadline_chip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{objectiveDetailViewModel.deadline == null ? @string/btn_set_deadline : objectiveDetailViewModel.deadline.toString()}"
+                    app:closeIconEnabled="true"/>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_gravity="end"
+                    android:id="@+id/objective_delete"
+                    android:layout_width="42dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(view) -> objectiveDetailViewModel.deleteCurrentObjective(view)}"
+                    app:backgroundTint="?attr/colorSurface"
+                    app:rippleColor="@color/primary_color_accent"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:icon="@drawable/ic_delete_forever_24dp"
+                    app:iconTint="?attr/colorError"/>
+            </LinearLayout>
+        </FrameLayout>
 </layout>

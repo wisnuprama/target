@@ -28,4 +28,5 @@
     <string name="title_activity_learn_okr">Belajar OKR</string>
     <string name="title_activity_settings">Pengaturan</string>
     <string name="under_development" translatable="false">Maaf, fitur ini sedang dalam pengembangan. Silahkan datang kembali nanti.</string>
+    <string name="btn_set_deadline">Tetapkan batas waktu</string>
 </resources>

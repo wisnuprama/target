@@ -38,6 +38,11 @@ public class ObjectiveRepository implements ObjectiveDataSource {
     }
 
     @Override
+    public void deleteObjective(@NonNull Integer objectiveId) {
+        AsyncTask.execute(() -> mObjectiveDao.deleteObjective(objectiveId));
+    }
+
+    @Override
     public LiveData<ObjectiveWithKeyResults> getObjective(@NonNull Integer objectiveId) {
         return mObjectiveDao.findObjectiveById(objectiveId);
     }

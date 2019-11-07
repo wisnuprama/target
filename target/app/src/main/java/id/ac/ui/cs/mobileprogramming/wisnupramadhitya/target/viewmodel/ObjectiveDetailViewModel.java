@@ -113,6 +113,12 @@ public class ObjectiveDetailViewModel extends ViewModel {
         mObjectiveRepository.updateObjective(objective);
     }
 
+    public void deleteCurrentObjective(View view) {
+        if(!isNewMode() && mObjectiveId != null) {
+            mObjectiveRepository.deleteObjective(mObjectiveId);
+        }
+    }
+
     public void setDeadline(@Nullable OffsetDateTime newDeadline) {
         deadline.set(newDeadline);
         if(!isNewMode()) {

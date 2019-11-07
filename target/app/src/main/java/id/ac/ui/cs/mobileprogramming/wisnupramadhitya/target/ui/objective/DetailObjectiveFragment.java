@@ -67,8 +67,11 @@ public class DetailObjectiveFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(ObjectiveDetailViewModel.class);
         mBinding.setObjectiveDetailViewModel(mViewModel);
 
-        int objectiveId = getArguments().getInt(ARG_OBJECTIVE_ID);
-        mViewModel.startUpdateMode(objectiveId);
+        Bundle args = getArguments();
+        if(args != null) {
+            int objectiveId = args.getInt(ARG_OBJECTIVE_ID);
+            mViewModel.startUpdateMode(objectiveId);
+        }
         setupInput();
     }
 

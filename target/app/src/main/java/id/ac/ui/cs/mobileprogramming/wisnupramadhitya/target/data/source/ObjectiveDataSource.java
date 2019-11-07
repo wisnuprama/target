@@ -17,6 +17,8 @@ public interface ObjectiveDataSource {
 
     void updateObjective(@NonNull final Objective objective);
 
+    void deleteObjective(@NonNull Integer objectiveId);
+
     LiveData<ObjectiveWithKeyResults> getObjective(@NonNull Integer objectiveId);
 
     LiveData<List<ObjectiveWithKeyResults>> getProjectObjectives(Integer projectId);

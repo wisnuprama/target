@@ -56,7 +56,7 @@
 
     <!-- General Button Text -->
     <string name="btn_save">Save</string>
-    <string name="btn_set_deadline">Set Deadline</string>
+    <string name="btn_set_deadline">Set deadline</string>
 
     <!-- Recent Info -->
     <string name="recent_info_heading">Recent Info</string>
