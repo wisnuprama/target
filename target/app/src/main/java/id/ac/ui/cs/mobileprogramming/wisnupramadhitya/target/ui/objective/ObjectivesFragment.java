@@ -90,6 +90,8 @@ public class ObjectivesFragment extends Fragment {
                     // one-pane layout mode
                     fragmentManager
                             .beginTransaction()
+                            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                                                 android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                             .replace(R.id.container_objectives,
                                      DetailObjectiveFragment.newInstance(objectiveId))
                             .addToBackStack(null)

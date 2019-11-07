@@ -70,21 +70,22 @@
                 android:layout_width="42dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:visibility="@{objectiveDetailViewModel.deadline != null ? View.GONE : View.VISIBLE}"
                 app:backgroundTint="?attr/colorSurface"
                 app:rippleColor="@color/primary_color_accent"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:icon="@drawable/ic_event_available_24dp"
-                app:iconTint="?attr/colorOnSurface"/>
+                app:iconTint="?attr/colorAccent"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/objective_deadline_chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/objective_deadline"
-                app:closeIconEnabled="true"
                 android:visibility="@{objectiveDetailViewModel.deadline != null ? View.VISIBLE : View.GONE}"
-                android:text="@{objectiveDetailViewModel.deadline.toString()}" />
+                android:text="@{objectiveDetailViewModel.deadline.toString()}"
+                app:closeIconEnabled="true"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/objective_save"
@@ -94,9 +95,8 @@
                 android:layout_alignParentEnd="true"
                 android:text="@string/btn_save"
                 android:onClick="@{(view) -> objectiveDetailViewModel.saveObjective(view)}"
-                app:rippleColor="@color/primary_color_accent"
                 android:enabled="@{!objectiveDetailViewModel.title.empty}"
-                app:backgroundTint="?attr/colorSurface"/>
+                android:textColor="?attr/colorAccent"/>
         </RelativeLayout>
     </LinearLayout>
 </layout>

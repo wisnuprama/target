@@ -55,7 +55,7 @@
             app:chipBackgroundColor="@color/primary_color_accent_12"
             app:chipEndPadding="@dimen/p16"
             app:chipIcon="@drawable/ic_event_available_24dp"
-            app:chipIconTint="@color/primary_color_accent"
+            app:chipIconTint="?attr/colorAccent"
             app:chipStartPadding="@dimen/p16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

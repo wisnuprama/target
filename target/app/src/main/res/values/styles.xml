@@ -6,13 +6,15 @@
         <item name="colorPrimary">@color/primary_light_color</item>
         <item name="colorPrimaryDark">@color/primary_dark_color</item>
         <item name="colorAccent">@color/primary_color_accent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetDialog</item>
     </style>
 
     <style name="AppTheme.Launcher" parent="AppTheme">
         <item name="android:windowSplashscreenContent">@drawable/launch_screen</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -20,7 +22,8 @@
         <item name="colorPrimary">@color/primary_light_color</item>
         <item name="colorPrimaryDark">@color/primary_dark_color</item>
         <item name="colorAccent">@color/primary_color_accent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
 
         <item name="bottomSheetDialogTheme">@style/AppTheme.BottomSheetDialog</item>
     </style>
@@ -28,6 +31,19 @@
     <style name="AppTheme.ProjectName" parent="TextAppearance.AppCompat.Display1">
         <item name="android:textFontWeight">500</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:buttonBarNegativeButtonStyle">@style/AppTheme.Dialog.NegativeButtonStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/AppTheme.Dialog.PositiveButtonStyle</item>
+    </style>
+
+    <style name="AppTheme.Dialog.NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="AppTheme.Dialog.PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/colorAccent</item>
     </style>
 
     <style name="AppTheme.BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">

@@ -12,7 +12,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -35,9 +34,6 @@ public class DetailObjectiveFragment extends Fragment {
 
     @BindView(R.id.edit_text_objective_reason)
     protected TextInputEditText mRationalInput;
-
-    @BindView(R.id.objective_deadline)
-    protected MaterialButton mDeadlineBtn;
 
     private ObjectiveDetailViewModel mViewModel;
     private FragmentDetailObjectiveBinding mBinding;
@@ -70,6 +66,9 @@ public class DetailObjectiveFragment extends Fragment {
         ObjectiveDetailViewModelFactory viewModelFactory = Injector.provideAddObjectiveViewModelFactory(getActivity());
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(ObjectiveDetailViewModel.class);
         mBinding.setObjectiveDetailViewModel(mViewModel);
+
+        int objectiveId = getArguments().getInt(ARG_OBJECTIVE_ID);
+        mViewModel.startUpdateMode(objectiveId);
         setupInput();
     }
 
@@ -81,7 +80,7 @@ public class DetailObjectiveFragment extends Fragment {
         mTitleInput.setOnFocusChangeListener(listener);
         mRationalInput.setOnFocusChangeListener(listener);
 
-        mDeadlineBtn.setOnClickListener(this::showDatePickerDialog);
+        mDeadlineChip.setOnClickListener(this::showDatePickerDialog);
         mDeadlineChip.setOnCloseIconClickListener(mViewModel::clearDeadline);
     }
 
@@ -93,4 +92,5 @@ public class DetailObjectiveFragment extends Fragment {
         DialogFragment newFragment = new DatePickerFragment(mViewModel);
         newFragment.show(getChildFragmentManager(), DatePickerFragment.TAG_NAME);
     }
+
 }

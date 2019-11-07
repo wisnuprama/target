@@ -76,15 +76,16 @@ public class AddObjectiveFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(ObjectiveDetailViewModel.class);
         mBinding.setObjectiveDetailViewModel(mViewModel);
         mViewModel.startNewMode(userId, projectId);
+        setupView();
+    }
 
+    private void setupView() {
         if(mViewModel.isNewMode())
             mTitleTextInputEditText.requestFocus();
         mDeadlineBtn.setOnClickListener(this::showDatePickerDialog);
+        mDeadlineChip.setOnClickListener(this::showDatePickerDialog);
         mDeadlineChip.setOnCloseIconClickListener(mViewModel::clearDeadline);
-        setupAddObjectiveEventListener();
-    }
 
-    private void setupAddObjectiveEventListener() {
         Activity activity = getActivity();
         mViewModel.onObjectiveSavedEvent.observe(this, v -> {
             BottomDrawerFragment.dismissDrawer();

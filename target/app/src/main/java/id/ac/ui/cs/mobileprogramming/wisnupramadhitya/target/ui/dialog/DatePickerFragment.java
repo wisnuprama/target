@@ -12,11 +12,13 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Calendar;
 
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModel;
 
 public class DatePickerFragment extends DialogFragment {
 
     private ObjectiveDetailViewModel mObjectiveDetailViewModel;
+    private DatePickerDialog mDatePickerDialog;
 
     public static final String TAG_NAME = "deadlineDatePicker";
 
@@ -41,9 +43,9 @@ public class DatePickerFragment extends DialogFragment {
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a new instance of DatePickerDialog and return it
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this::setDate, year, month, day);
-        datePickerDialog.setOnDateSetListener(this::setDate);
-        return datePickerDialog;
+        mDatePickerDialog = new DatePickerDialog(getActivity(), R.style.AppTheme_Dialog, this::setDate, year, month, day);
+        mDatePickerDialog.setOnDateSetListener(this::setDate);
+        return mDatePickerDialog;
     }
 
     void setDate(DatePicker view, int year, int month, int dayOfMonth) {
