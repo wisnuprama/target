@@ -99,6 +99,7 @@ public class DataExporter {
                 .setSubject(mFileName) // for google drive, it used as file name. gmail use this as subject
                 .getIntent()
                 .setAction(Intent.ACTION_SEND) // send to other app, share
+                .setDataAndType(fileUri, "text/*")
                 // set flag to give temporary permission to external app to use FileProvider
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         activity.startActivity(Intent.createChooser(shareFileIntent, "Share via..."));
