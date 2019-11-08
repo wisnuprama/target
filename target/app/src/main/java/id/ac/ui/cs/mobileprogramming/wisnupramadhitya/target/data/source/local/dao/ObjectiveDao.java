@@ -28,6 +28,9 @@ public interface ObjectiveDao {
     @Query("DELETE FROM objective WHERE id = :objectiveId")
     int deleteObjective(Integer objectiveId);
 
+    @Query("SELECT * FROM objective where id = :objectiveId")
+    Objective getObjective(Integer objectiveId);
+
     @Query("SELECT * FROM objective")
     LiveData<List<Objective>> findAllObjectives();
 
