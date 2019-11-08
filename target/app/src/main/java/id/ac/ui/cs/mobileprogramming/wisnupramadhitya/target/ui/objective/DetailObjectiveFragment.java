@@ -79,6 +79,13 @@ public class DetailObjectiveFragment extends Fragment {
         setupInput();
     }
 
+    @Override
+    public void onDestroyView() {
+        if(mViewModel.isDirty())
+            mViewModel.saveObjective(getView());
+        super.onDestroyView();
+    }
+
     private void setupInput() {
         View.OnFocusChangeListener listener = (v, hasFocus) -> {
             // save the objective when the textinput on blur
@@ -94,6 +101,8 @@ public class DetailObjectiveFragment extends Fragment {
     public void updateObjectiveView(int objectiveId) {
         // start the update mode, used in two pane layout
         // where the each item call this
+        if(mViewModel.isDirty())
+            mViewModel.saveObjective(getView());
         mViewModel.startUpdateMode(objectiveId);
     }
 

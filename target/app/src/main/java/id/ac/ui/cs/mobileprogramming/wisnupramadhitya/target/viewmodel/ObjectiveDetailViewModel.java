@@ -31,6 +31,7 @@ public class ObjectiveDetailViewModel extends ViewModel {
 
     private final MediatorLiveData<ObjectiveWithKeyResults> mObjectiveLiveData = new MediatorLiveData<>();
     private boolean mIsNewObjectivevMode = false;
+    private boolean mIsDirty = false;
 
     public ObjectiveDetailViewModel(ObjectiveRepository objectiveRepository) {
         mObjectiveRepository = objectiveRepository;
@@ -38,12 +39,14 @@ public class ObjectiveDetailViewModel extends ViewModel {
     }
 
     public void startNewMode(String userId, int projectId) {
+        mIsDirty = false;
         mUserId = userId;
         mProjectId = projectId;
         setupForm(null);
     }
 
     public void startUpdateMode(Integer objectiveId){
+        mIsDirty = false;
         LiveData<ObjectiveWithKeyResults> liveData = mObjectiveRepository.getObjective(objectiveId);
         mObjectiveLiveData.addSource(liveData,
                                      objectiveWithKeyResults -> mObjectiveLiveData.setValue(objectiveWithKeyResults));
@@ -51,6 +54,10 @@ public class ObjectiveDetailViewModel extends ViewModel {
 
     public boolean isNewMode() {
         return mIsNewObjectivevMode;
+    }
+
+    public boolean isDirty() {
+        return mIsDirty;
     }
 
     public MediatorLiveData<ObjectiveWithKeyResults> getObjectiveLiveData() {
@@ -69,6 +76,7 @@ public class ObjectiveDetailViewModel extends ViewModel {
             title.set(obj.getTitle());
             rational.set(obj.getRational());
             deadline.set(obj.getDeadline());
+            mIsDirty = true;
         } else {
             // create mode
             mIsNewObjectivevMode = true;
@@ -82,6 +90,7 @@ public class ObjectiveDetailViewModel extends ViewModel {
         mUserId = null;
         mProjectId = null;
         mObjectiveId = null;
+        mIsDirty = false;
     }
 
     public void saveObjective(View view) {
