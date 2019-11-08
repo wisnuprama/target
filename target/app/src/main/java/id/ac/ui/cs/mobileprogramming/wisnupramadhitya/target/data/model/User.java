@@ -6,10 +6,13 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
+
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.gson.OffsetDateTimeConverter;
 
 
 @Entity
@@ -26,6 +29,7 @@ public class User {
     private String mUsername;
 
     @SerializedName("dateCreated")
+    @JsonAdapter(OffsetDateTimeConverter.class)
     @ColumnInfo(name = "date_created")
     private OffsetDateTime mDateCreated = OffsetDateTime.now();
 

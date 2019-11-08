@@ -6,10 +6,13 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
+
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.gson.OffsetDateTimeConverter;
 
 @Entity(
         foreignKeys = {
@@ -47,6 +50,7 @@ public class Objective {
     private String mRational;
 
     @SerializedName("dateCreated")
+    @JsonAdapter(OffsetDateTimeConverter.class)
     @ColumnInfo(name = "date_created")
     private OffsetDateTime mDateCreated = OffsetDateTime.now();
 
