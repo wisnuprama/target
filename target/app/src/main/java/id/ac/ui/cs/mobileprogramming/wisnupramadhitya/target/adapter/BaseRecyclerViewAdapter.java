@@ -10,13 +10,13 @@ import java.util.List;
  * @param <VH>
  * @param <T>
  */
-public abstract class BaseRecyclerView<VH extends RecyclerView.ViewHolder, T extends DiffItem<T>> extends RecyclerView.Adapter<VH> {
+public abstract class BaseRecyclerViewAdapter<VH extends RecyclerView.ViewHolder, T extends DiffItem<T>> extends RecyclerView.Adapter<VH> {
 
     private List<T> mItems;
 
-    public BaseRecyclerView() {}
+    public BaseRecyclerViewAdapter() {}
 
-    public BaseRecyclerView(List<T> items) {
+    public BaseRecyclerViewAdapter(List<T> items) {
         mItems = items;
     }
 

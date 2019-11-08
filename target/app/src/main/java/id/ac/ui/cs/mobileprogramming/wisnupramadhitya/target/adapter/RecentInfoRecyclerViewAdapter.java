@@ -16,7 +16,8 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.RecentInfo;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.databinding.RecentinfoItemViewholderBinding;
 
-public class RecentInfoRecyclerViewAdapter extends BaseRecyclerView<RecentInfoRecyclerViewAdapter.RecentInfoViewHolder, RecentInfo> {
+public class RecentInfoRecyclerViewAdapter
+        extends BaseRecyclerViewAdapter<RecentInfoRecyclerViewAdapter.RecentInfoViewHolder, RecentInfo> {
 
     public RecentInfoRecyclerViewAdapter(List<RecentInfo> items) {
         super(items);

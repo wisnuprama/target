@@ -19,7 +19,7 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.databinding.Objecti
  * Need refactor to BaseRecyclerAdapter because both implementation are same.
  */
 public class ObjectivesRecyclerViewAdapter
-        extends BaseRecyclerView<ObjectivesRecyclerViewAdapter.ObjectiveViewHolder, ObjectiveWithKeyResults> {
+        extends BaseRecyclerViewAdapter<ObjectivesRecyclerViewAdapter.ObjectiveViewHolder, ObjectiveWithKeyResults> {
 
     private ObjectiveClickListener mItemClickListener;
 
