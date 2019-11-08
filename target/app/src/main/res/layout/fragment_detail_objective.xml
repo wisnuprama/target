@@ -6,6 +6,9 @@
     <data>
         <import type="android.view.View"/>
         <variable
+            name="view"
+            type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.DetailObjectiveFragment" />
+        <variable
             name="objectiveDetailViewModel"
             type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModel" />
     </data>
@@ -30,6 +33,19 @@
                 android:layout_height="match_parent"
                 android:padding="@dimen/p16"
                 android:paddingTop="@dimen/p4">
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:layout_gravity="end"
+                    android:id="@+id/objective_delete"
+                    android:layout_width="42dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(v) -> view.handleDeleteObjective(v)}"
+                    app:backgroundTint="?attr/colorSurface"
+                    app:rippleColor="@color/primary_color_accent"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:icon="@drawable/ic_delete_forever_24dp"
+                    app:iconTint="?attr/colorError"/>
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                     android:layout_width="match_parent"
@@ -75,20 +91,6 @@
                     android:layout_height="wrap_content"
                     android:text="@{objectiveDetailViewModel.deadline == null ? @string/btn_set_deadline : objectiveDetailViewModel.deadline.toString()}"
                     app:closeIconEnabled="true"/>
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                    android:layout_gravity="end"
-                    android:id="@+id/objective_delete"
-                    android:layout_width="42dp"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{(view) -> objectiveDetailViewModel.deleteCurrentObjective(view)}"
-                    app:backgroundTint="?attr/colorSurface"
-                    app:rippleColor="@color/primary_color_accent"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:icon="@drawable/ic_delete_forever_24dp"
-                    app:iconTint="?attr/colorError"/>
             </LinearLayout>
         </FrameLayout>
 </layout>

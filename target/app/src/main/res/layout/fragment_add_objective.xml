@@ -6,6 +6,9 @@
     <data>
         <import type="android.view.View"/>
         <variable
+            name="view"
+            type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.AddObjectiveFragment" />
+        <variable
             name="objectiveDetailViewModel"
             type="id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModel" />
     </data>
@@ -94,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="@string/btn_save"
-                android:onClick="@{(view) -> objectiveDetailViewModel.saveObjective(view)}"
+                android:onClick="@{view.handleSaveObjective}"
                 android:enabled="@{!objectiveDetailViewModel.title.empty}"
                 android:textColor="?attr/colorAccent"/>
         </RelativeLayout>

@@ -22,7 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local.AppDatabase;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.PreferenceRepository;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.navigator.OkrNavigator;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.service.ThemeModeJobService;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.drawer.BottomDrawerFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.AddObjectiveFragment;
@@ -34,7 +33,7 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModelFactory;
 
-public class OkrActivity extends AppCompatActivity implements OkrNavigator {
+public class OkrActivity extends AppCompatActivity {
 
     @BindView(R.id.bottom_app_bar)
     protected Toolbar mBottomAppBar;
@@ -105,31 +104,26 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
     public void startSettings() {
         Intent settingsIntent = new Intent(this, SettingsActivity.class);
         startActivity(settingsIntent);
     }
 
-    @Override
     public void startAbout() {
         Intent aboutIntent = new Intent(this, AboutActivity.class);
         startActivity(aboutIntent);
     }
 
-    @Override
     public void startLearnOkr() {
         Intent learnOkrIntent = new Intent(this, LearnOkrActivity.class);
         startActivity(learnOkrIntent);
     }
 
-    @Override
     public void showUserProjects() {
         BottomDrawerFragment
                 .showDrawer(getSupportFragmentManager(), null);
     }
 
-    @Override
     public void showAddObjective() {
         // activate the form
         int projectId = mObjectivesViewModel.selectedProjectId.get();
@@ -140,7 +134,6 @@ public class OkrActivity extends AppCompatActivity implements OkrNavigator {
                 .showDrawer(getSupportFragmentManager(), addObjectiveFragment);
     }
 
-    @Override
     public void showSearchProjects() {
         BottomDrawerFragment
                 .showDrawer(getSupportFragmentManager(), null);

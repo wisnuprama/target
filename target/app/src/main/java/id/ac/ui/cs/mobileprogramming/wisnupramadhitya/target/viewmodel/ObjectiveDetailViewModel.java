@@ -13,7 +13,6 @@ import java.time.OffsetDateTime;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.Objective;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.model.ObjectiveWithKeyResults;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.repository.ObjectiveRepository;
-import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.databinding.SingleLiveEvent;
 
 public class ObjectiveDetailViewModel extends ViewModel {
 
@@ -29,7 +28,6 @@ public class ObjectiveDetailViewModel extends ViewModel {
     public final ObservableField<String> title = new ObservableField<>();
     public final ObservableField<String> rational = new ObservableField<>();
     public final ObservableField<OffsetDateTime> deadline =  new ObservableField<>();
-    public final SingleLiveEvent<Void> onObjectiveSavedEvent = new SingleLiveEvent<>();
 
     private final MediatorLiveData<ObjectiveWithKeyResults> mObjectiveLiveData = new MediatorLiveData<>();
     private boolean mIsNewObjectivevMode = false;
@@ -94,7 +92,6 @@ public class ObjectiveDetailViewModel extends ViewModel {
             updateObjective(mUserId, mProjectId, mObjectiveId,
                             title.get(), rational.get(), deadline.get());
         }
-        onObjectiveSavedEvent.call();
     }
 
     public void createObjective(String userId, Integer projectId,

@@ -62,6 +62,7 @@ public class AddObjectiveFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_objective,
                                                                container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
+        mBinding.setView(this);
         View view = mBinding.getRoot();
         ButterKnife.bind(this, view);
         return view;
@@ -85,21 +86,29 @@ public class AddObjectiveFragment extends Fragment {
         mDeadlineBtn.setOnClickListener(this::showDatePickerDialog);
         mDeadlineChip.setOnClickListener(this::showDatePickerDialog);
         mDeadlineChip.setOnCloseIconClickListener(mViewModel::clearDeadline);
-
-        Activity activity = getActivity();
-        mViewModel.onObjectiveSavedEvent.observe(this, v -> {
-            BottomDrawerFragment.dismissDrawer();
-            if(activity != null) {
-                new Handler().postDelayed(
-                        () -> activity.runOnUiThread(
-                                () -> SnackbarUtils.showSnackbar(activity, "HAHA")),
-                        1500);
-            }
-        });
     }
 
     private void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment(mViewModel);
         newFragment.show(getChildFragmentManager(), DatePickerFragment.TAG_NAME);
+    }
+
+    /**
+     * as button listener
+     * @param view
+     */
+    public void handleSaveObjective(View view) {
+        BottomDrawerFragment.dismissDrawer();
+        Activity activity = getActivity();
+        new Handler().postDelayed(
+                () -> {
+                    mViewModel.saveObjective(view);
+                    activity.runOnUiThread(
+                            () -> {
+                                String msg = String.format(activity.getString(R.string.add_objective_success), 1);
+                                SnackbarUtils.showSnackbar(activity, msg);
+                            });
+                },
+                500);
     }
 }

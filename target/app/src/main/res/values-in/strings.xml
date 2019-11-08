@@ -29,4 +29,6 @@
     <string name="title_activity_settings">Pengaturan</string>
     <string name="under_development" translatable="false">Maaf, fitur ini sedang dalam pengembangan. Silahkan datang kembali nanti.</string>
     <string name="btn_set_deadline">Tetapkan batas waktu</string>
+    <string name="add_objective_success">%d</string>
+    <string name="delete_objective_success">%d dihapus</string>
 </resources>
