@@ -21,6 +21,7 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.R;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.databinding.FragmentDetailObjectiveBinding;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.dialog.DatePickerFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.SnackbarUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModel;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectiveDetailViewModelFactory;
 
@@ -55,6 +56,7 @@ public class DetailObjectiveFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_objective,
                                            container, false);
         mBinding.setLifecycleOwner(this);
+        mBinding.setView(this);
         View view = mBinding.getRoot();
         ButterKnife.bind(this, view);
         return view;
@@ -63,6 +65,8 @@ public class DetailObjectiveFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        // setup the viewmodel
         ObjectiveDetailViewModelFactory viewModelFactory = Injector.provideAddObjectiveViewModelFactory(getActivity());
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(ObjectiveDetailViewModel.class);
         mBinding.setObjectiveDetailViewModel(mViewModel);
@@ -76,8 +80,8 @@ public class DetailObjectiveFragment extends Fragment {
     }
 
     private void setupInput() {
-        mDeadlineChip.setOnCloseIconClickListener(mViewModel::clearDeadline);
         View.OnFocusChangeListener listener = (v, hasFocus) -> {
+            // save the objective when the textinput on blur
             if(!hasFocus) mViewModel.saveObjective(v);
         };
         mTitleInput.setOnFocusChangeListener(listener);
@@ -88,12 +92,23 @@ public class DetailObjectiveFragment extends Fragment {
     }
 
     public void updateObjectiveView(int objectiveId) {
+        // start the update mode, used in two pane layout
+        // where the each item call this
         mViewModel.startUpdateMode(objectiveId);
     }
 
-    private void showDatePickerDialog(View v) {
+    private void showDatePickerDialog(View view) {
         DialogFragment newFragment = new DatePickerFragment(mViewModel);
+        // show datepicker
         newFragment.show(getChildFragmentManager(), DatePickerFragment.TAG_NAME);
     }
 
+    public void handleDeleteObjective(View view) {
+        // delete objective
+        mViewModel.deleteCurrentObjective(view);
+        // show delete success
+        SnackbarUtils.showSnackbar(getActivity(), String.format(getString(R.string.delete_objective_success), 1));
+        // back to previous stack
+        getFragmentManager().popBackStackImmediate();
+    }
 }

@@ -62,6 +62,7 @@ public class AddObjectiveFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_objective,
                                                                container, false);
         mBinding.setLifecycleOwner(getViewLifecycleOwner());
+        mBinding.setView(this);
         View view = mBinding.getRoot();
         ButterKnife.bind(this, view);
         return view;
@@ -75,7 +76,6 @@ public class AddObjectiveFragment extends Fragment {
         ObjectiveDetailViewModelFactory viewModelFactory = Injector.provideAddObjectiveViewModelFactory(getActivity());
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(ObjectiveDetailViewModel.class);
         mBinding.setObjectiveDetailViewModel(mViewModel);
-        mBinding.setView(this);
         mViewModel.startNewMode(userId, projectId);
         setupView();
     }
