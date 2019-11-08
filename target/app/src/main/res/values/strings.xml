@@ -60,5 +60,7 @@
 
     <!-- Recent Info -->
     <string name="recent_info_heading">Recent Info</string>
+    <string name="add_objective_success">%d added</string>
+    <string name="delete_objective_success">%d deleted</string>
 
 </resources>
