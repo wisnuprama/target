@@ -76,6 +76,12 @@ public class OkrActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BottomDrawerFragment.destroy();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.objectives_bottom_appbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
