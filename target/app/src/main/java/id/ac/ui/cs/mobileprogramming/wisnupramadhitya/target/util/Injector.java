@@ -1,6 +1,8 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
 
 import androidx.annotation.NonNull;
 
@@ -57,5 +59,10 @@ public class Injector {
 
     public static RecentInfoViewModelFactory provideRecentInfoViewModelFactory(@NonNull Context context) {
         return new RecentInfoViewModelFactory(getRecentInfoRepository(context));
+    }
+
+
+    public static ConnectivityManager.NetworkCallback provideInternetConnectivityNetworkCallback(@NonNull Activity activity) {
+        return new InternetConnNetworkCallback(activity);
     }
 }

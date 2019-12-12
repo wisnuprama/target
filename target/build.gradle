@@ -7,7 +7,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.android.tools.build:gradle:3.5.2'
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -43,10 +43,10 @@ ext {
     junitExtVersion = '1.1.1'
     lifecycleExtentionsVersion = '2.1.0'
     legacySupportVersion = '1.0.0'
-    materialVersion = '1.1.0-beta01'
+    materialVersion = '1.2.0-alpha02'
     preferenceVersion = '1.1.0'
-    roomVersion = '2.2.1'
-    recyclerviewVersion = '1.0.0'
+    roomVersion = '2.2.2'
+    recyclerviewVersion = '1.1.0-beta01'
     supportLibraryVersion = '1.1.0'
     volleyVersion = '1.1.1'
     workVersion = '1.0.1'
