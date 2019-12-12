@@ -56,6 +56,10 @@ public class BottomDrawerFragment extends BottomSheetDialogFragment {
         getInstance().dismiss();
     }
 
+    public static synchronized void destroy() {
+        instance = null;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

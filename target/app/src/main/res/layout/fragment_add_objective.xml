@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="@string/btn_save"
-                android:onClick="@{view.handleSaveObjective}"
+                android:onClick="@{view::handleSaveObjective}"
                 android:enabled="@{!objectiveDetailViewModel.title.empty}"
                 android:textColor="?attr/colorAccent"/>
         </RelativeLayout>
