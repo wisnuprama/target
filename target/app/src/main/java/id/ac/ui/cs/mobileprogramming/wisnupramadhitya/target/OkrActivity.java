@@ -82,6 +82,7 @@ public class OkrActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mConnectivityManager.unregisterNetworkCallback(mInternetCallback);
+        BottomDrawerFragment.destroy();
     }
 
     @Override
