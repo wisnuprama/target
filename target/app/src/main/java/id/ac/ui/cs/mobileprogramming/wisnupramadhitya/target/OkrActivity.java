@@ -3,6 +3,7 @@ package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,6 +29,7 @@ import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.AddObj
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective.ObjectivesFragment;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.BuildUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.Injector;
+import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.InternetConnNetworkCallback;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.NotificationUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util.ThemeUtils;
 import id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel.ObjectivesViewModel;
@@ -42,6 +44,9 @@ public class OkrActivity extends AppCompatActivity {
     protected FloatingActionButton mFloatingActionButton;
 
     private ObjectivesViewModel mObjectivesViewModel;
+
+    private ConnectivityManager.NetworkCallback mInternetCallback;
+    private ConnectivityManager mConnectivityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +63,7 @@ public class OkrActivity extends AppCompatActivity {
         // setup other
         setupViewModel();
         setupButtonListener();
-
-        // notification
-        NotificationUtils.createNotificationChannel(getApplicationContext());
+        setupUtilities();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -73,6 +76,12 @@ public class OkrActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupThemeModeReceiverOnFresh();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mConnectivityManager.unregisterNetworkCallback(mInternetCallback);
     }
 
     @Override
@@ -149,6 +158,17 @@ public class OkrActivity extends AppCompatActivity {
 
     private void setupButtonListener() {
         mFloatingActionButton.setOnClickListener(view -> this.showAddObjective());
+    }
+
+    private void setupUtilities() {
+        // notification
+        NotificationUtils.createNotificationChannel(getApplicationContext());
+
+        // connectivity
+        mConnectivityManager = getApplicationContext()
+                .getSystemService(ConnectivityManager.class);
+        if(mConnectivityManager == null) return;
+        mInternetCallback = InternetConnNetworkCallback.register(this, mConnectivityManager);
     }
 
     private void setupFirstRun() {

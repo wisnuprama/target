@@ -3,8 +3,6 @@ package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.util;
 import android.app.Activity;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.snackbar.Snackbar;
 
 /**
@@ -32,5 +30,12 @@ public class SnackbarUtils {
                 .getDecorView()
                 .findViewById(android.R.id.content);
         Snackbar.make(rootView, text, Snackbar.LENGTH_LONG).show();
+    }
+
+    public static void showSnackbar(Activity activity, String text, int length) {
+        View rootView = activity.getWindow()
+                .getDecorView()
+                .findViewById(android.R.id.content);
+        Snackbar.make(rootView, text, length).show();
     }
 }
