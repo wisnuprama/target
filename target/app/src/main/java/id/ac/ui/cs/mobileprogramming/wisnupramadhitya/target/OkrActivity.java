@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -182,8 +183,9 @@ public class OkrActivity extends AppCompatActivity {
             public void run() {
                 try {
                     if(PreferenceRepository.isFirstRun(context)) {
-                        AppDatabase.seedUser(context);
-                        AppDatabase.seedProject(context);
+                        String userUuid = generateUUID();
+                        AppDatabase.seedUser(context, userUuid);
+                        AppDatabase.seedProject(context, userUuid);
                         PreferenceRepository.setFirstRunCompleted(context);
                         runOnUiThread(activity::recreate);
                     }
@@ -212,5 +214,11 @@ public class OkrActivity extends AppCompatActivity {
         } else if(isThemeDarkMode) {
             ThemeUtils.applyTheme(themeMode);
         }
+    }
+
+    public static native String generateUUID();
+
+    static {
+        System.loadLibrary("native-lib");
     }
 }

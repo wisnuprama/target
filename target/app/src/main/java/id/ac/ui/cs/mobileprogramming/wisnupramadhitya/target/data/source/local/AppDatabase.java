@@ -1,6 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.data.source.local;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
@@ -68,7 +69,7 @@ public abstract class AppDatabase extends RoomDatabase {
         instance = null;
     }
 
-    public static void seedUser(@NonNull Context context) throws IOException {
+    public static void seedUser(@NonNull Context context, String userId) throws IOException {
         InputStream inputStream = context.getAssets().open("user.json");
         int size = inputStream.available();
         byte[] buffer = new byte[size];
@@ -76,6 +77,7 @@ public abstract class AppDatabase extends RoomDatabase {
         inputStream.close();
         String json = new String(buffer, StandardCharsets.UTF_8);
         User user = new Gson().fromJson(json, new TypeToken<User>(){}.getType());
+        user.setId(userId);
         AppDatabase appDatabase = AppDatabase.getInstance(context);
         appDatabase.userDao().insertAll(user);
 
@@ -83,14 +85,18 @@ public abstract class AppDatabase extends RoomDatabase {
         PreferenceRepository.setActiveUserId(context, user.getId());
     }
 
-    public static void seedProject(@NonNull Context context) throws IOException {
+    public static void seedProject(@NonNull Context context, String userId) throws IOException {
         InputStream inputStream = context.getAssets().open("projects.json");
         int size = inputStream.available();
         byte[] buffer = new byte[size];
         inputStream.read(buffer);
         inputStream.close();
         String json = new String(buffer, StandardCharsets.UTF_8);
+        // deserialize
         List<Project> projects = new Gson().fromJson(json, new TypeToken<List<Project>>(){}.getType());
+        // set owner id
+        projects.forEach(p -> p.setOwnerId(userId));
+        // insert
         AppDatabase appDatabase = AppDatabase.getInstance(context);
         appDatabase.projectDao().insertAll(projects.toArray(new Project[0]));
 
