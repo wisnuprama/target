@@ -6,6 +6,10 @@
     <string name="author_name">Wisnu Pramadhitya Ramadhan/1606918055</string>
     <string name="objective">Objective</string>
     <string name="under_development">Sorry the feature is under development. Please come later.</string>
+    <string name="grant">Grant</string>
+
+    <!--  Permission  -->
+    <string name="perm_calendar_description">We need to access your calendar to integrate the objective to your schedule.</string>
 
     <!--  Notification  -->
     <string name="default_channel_name">Notification</string>

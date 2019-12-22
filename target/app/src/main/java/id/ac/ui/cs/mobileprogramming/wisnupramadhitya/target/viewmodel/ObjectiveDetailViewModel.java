@@ -3,6 +3,7 @@ package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.viewmodel;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -32,6 +33,8 @@ public class ObjectiveDetailViewModel extends ViewModel {
     private final MediatorLiveData<ObjectiveWithKeyResults> mObjectiveLiveData = new MediatorLiveData<>();
     private boolean mIsNewObjectivevMode = false;
     private boolean mIsDirty = false;
+
+    public final ObservableBoolean permissionGranted = new ObservableBoolean(true);
 
     public ObjectiveDetailViewModel(ObjectiveRepository objectiveRepository) {
         mObjectiveRepository = objectiveRepository;

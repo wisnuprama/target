@@ -1,22 +1,31 @@
 package id.ac.ui.cs.mobileprogramming.wisnupramadhitya.target.ui.objective;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.function.Function;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +86,7 @@ public class AddObjectiveFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this, viewModelFactory).get(ObjectiveDetailViewModel.class);
         mBinding.setObjectiveDetailViewModel(mViewModel);
         mViewModel.startNewMode(userId, projectId);
-        setupView();
+        askCalendarPermission();
     }
 
     private void setupView() {
@@ -91,6 +100,50 @@ public class AddObjectiveFragment extends Fragment {
     private void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment(mViewModel);
         newFragment.show(getChildFragmentManager(), DatePickerFragment.TAG_NAME);
+    }
+
+    private static final int PERMISSION_CALENDAR_REQUEST_CODE = 101;
+    public void askCalendarPermission() {
+        final Activity thisActivity = getActivity();
+        if(thisActivity == null) return;
+        if(ContextCompat.checkSelfPermission(thisActivity, Manifest.permission.WRITE_CALENDAR)
+                        != PackageManager.PERMISSION_GRANTED) {
+            // request the permission
+            // PERMISSION_CALENDAR_REQUEST_CODE is an
+            // app-defined int constant. The callback method gets the
+            // result of the request.
+            mViewModel.permissionGranted.set(false);
+            requestPermissions(new String[]{Manifest.permission.WRITE_CALENDAR},
+                               PERMISSION_CALENDAR_REQUEST_CODE);
+        } else {
+            setupView();
+        }
+    }
+
+    private void onRequestCalendarPermission(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        final FragmentActivity thisActivity = getActivity();
+        if(thisActivity == null) return;
+        if (grantResults.length > 0) {
+            switch (grantResults[0]) {
+                case PackageManager.PERMISSION_GRANTED:
+                    mViewModel.permissionGranted.set(true);
+                    setupView();
+                    break;
+                case PackageManager.PERMISSION_DENIED:
+                default:
+                    mViewModel.permissionGranted.set(false);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMISSION_CALENDAR_REQUEST_CODE:
+                this.onRequestCalendarPermission(requestCode, permissions, grantResults);
+                break;
+        }
     }
 
     /**

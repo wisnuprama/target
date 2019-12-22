@@ -31,4 +31,6 @@
     <string name="btn_set_deadline">Tetapkan batas waktu</string>
     <string name="add_objective_success">%d</string>
     <string name="delete_objective_success">%d dihapus</string>
+    <string name="perm_calendar_description">Kami membutuhkan akses ke kalendar Anda untuk mengintegrasikan objektif ke jadwal Anda.</string>
+    <string name="grant">Lanjutkan</string>
 </resources>
