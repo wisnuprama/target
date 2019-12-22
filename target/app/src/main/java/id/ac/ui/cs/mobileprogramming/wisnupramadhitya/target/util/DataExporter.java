@@ -93,10 +93,11 @@ public class DataExporter {
         // generate URI, defined authority as the application ID in the Manifest,
         // the last param is file we want to open
         Uri fileUri = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID, mFile);
-        Intent shareFileIntent = ShareCompat.IntentBuilder.from(activity)
+        ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(activity)
                 .setStream(fileUri) // set file as attachment
                 .setType("text/*") // set mime type
-                .setSubject(mFileName) // for google drive, it used as file name. gmail use this as subject
+                .setSubject(mFileName); // for google drive, it used as file name. gmail use this as subject
+        Intent shareFileIntent = builder
                 .getIntent()
                 .setAction(Intent.ACTION_SEND) // send to other app, share
                 .setDataAndType(fileUri, "text/*")
